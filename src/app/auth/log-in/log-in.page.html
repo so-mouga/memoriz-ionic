@@ -1,0 +1,54 @@
+<div class="bloc-auth-up">
+  <h1>Memoriz</h1>
+  <ion-button
+    color="light"
+    size="default"(click)="onSignUp()"
+  >
+    SIGN UP
+  </ion-button>
+</div>
+
+<ion-content padding>
+  <h2 text-center="center">LOG IN</h2>
+
+  <ion-list padding>
+    <ion-button
+      shape="round"
+      expand="block"
+      size="default"(click)="onLogInGoole()"
+    >
+      Log in with google
+    </ion-button>
+    <ion-button
+      shape="round"
+      expand="block"
+      size="default"(click)="onLogInFacebook()"
+    >
+      Log in with facebook
+    </ion-button>
+  </ion-list>
+
+  <!-- @todo Display error form-->
+  <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-input type="email" formControlName="email" placeholder="email" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" formControlName="password" placeholder="password"></ion-input>
+      </ion-item>
+      <ion-button
+        type="submit"
+        [disabled]="logInForm.invalid"
+        shape="round"
+        size="default"
+        color="primary"
+        expand="block"
+      >
+        Log in
+      </ion-button>
+    </ion-list>
+  </form>
+
+  <p text-center="center" (click)="onLostPassword()">Lost your password?</p>
+</ion-content>
