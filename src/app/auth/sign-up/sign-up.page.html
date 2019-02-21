@@ -1,9 +1,58 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sign-up</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
+    <h2 text-center="center">Create your account</h2>
 
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+            <ion-list>
+                <ion-item>
+                    <ion-label>I am</ion-label>
+                    <ion-select formControlName="profileType" interface="popover">
+                        <ion-select-option *ngFor="let type of profilesType" value="{{ type }}">{{ type }}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+
+            <ion-item>
+                <ion-label position="stacked">Date of birth</ion-label>
+                <ion-input type="date" max="{{ dateMinRequired | date: 'yyyy-MM-dd'}}" formControlName="dateOfBirth" ></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Pick a username</ion-label>
+                <ion-input type="string" formControlName="userName"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Add your email address</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Create a password</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-list>
+                    <ion-checkbox checked="false" formControlName="privacyPolicy"></ion-checkbox>
+                    <p>
+                        I have read and agree with the Memoriz! Terms and Conditions.
+                        Memoriz! will collect and process data as described in the
+                        Privacy Policy and Children's Privacy Policy. (required)
+                    </p>
+                </ion-list>
+            </ion-item>
+
+            <ion-button
+                    type="submit"
+                    [disabled]="signUpForm.invalid"
+                    shape="round"
+                    size="default"
+                    color="primary"
+                    expand="block"
+            >
+                Join Memoriz!
+            </ion-button>
+        </ion-list>
+    </form>
 </ion-content>

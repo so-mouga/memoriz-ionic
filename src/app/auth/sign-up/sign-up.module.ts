@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
-
 import { SignUpPage } from './sign-up.page';
 
 const routes: Routes = [
@@ -16,6 +14,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     FormsModule,
     IonicModule,
