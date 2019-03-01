@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { AuthService } from "../../shared/service/auth/auth.service";
+import { NavController } from '@ionic/angular';
+import { AuthService } from '../../shared/service/auth/auth.service';
 
 @Component({
   selector: 'app-log-in',
@@ -11,7 +12,11 @@ export class LogInPage implements OnInit {
 
   logInForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private navCtrl: NavController,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -38,7 +43,7 @@ export class LogInPage implements OnInit {
   }
 
   onSignUp() {
-    console.log('sign up');
+    this.navCtrl.navigateForward( ['/sign-up']);
   }
 
   onLogInGoole() {
