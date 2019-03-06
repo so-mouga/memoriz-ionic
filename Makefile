@@ -6,6 +6,43 @@ COLOR_RESET   = \033[0m
 COLOR_INFO    = \033[32m
 COLOR_COMMENT = \033[33m
 
+## Detect OS and Architecture
+## OS
+OSFLAG 				:=
+ifeq ($(OS),Windows_NT)
+	OSFLAG = WIN32
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		OSFLAG = LINUX
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		OSFLAG = OSX
+	endif
+endif
+
+## ARCHITECTURE
+ArchitectureFLAG :=
+ifeq ($(OSFLAG),WIN32)
+	ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+		ArchitectureFLAG = AMD64
+	endif
+	ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+		ArchitectureFLAG = IA32
+	endif
+else
+	UNAME_P := $(shell uname -p)
+	ifeq ($(UNAME_P),x86_64)
+		ArchitectureFLAG = AMD64
+	endif
+	ifneq ($(filter %86,$(UNAME_P)),)
+		ArchitectureFLAG = IA32
+	endif
+	ifneq ($(filter arm%,$(UNAME_P)),)
+		ArchitectureFLAG = ARM
+	endif
+endif
+
 ## Help
 help:
 	printf "${COLOR_COMMENT}Usage:${COLOR_RESET}\n"
@@ -28,6 +65,10 @@ help:
 ## initialize a git config to use hooks
 init-hooks:
 	git config --local core.hooksPath .githooks
+ifneq ($(OSFLAG),WIN32)
+	chmod -R +x .githooks
+endif	
+
 
 ## to install app
 app-install:
