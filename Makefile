@@ -74,3 +74,11 @@ endif
 app-install:
 	npm install
 	make init-hooks
+
+## to run app
+infra-up:
+	ionic serve
+
+## to run app
+infra-up-mobile-display:
+	ionic serve --lab
