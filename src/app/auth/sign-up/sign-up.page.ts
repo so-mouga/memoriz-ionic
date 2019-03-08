@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {User} from '../../shared/class/user';
+import {User} from '@app/shared/class/user';
 import * as moment from 'moment';
-import {AuthService} from '../../shared/service/auth/auth.service';
+import {UserService} from '@app/shared/service/user/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,11 +14,12 @@ export class SignUpPage implements OnInit {
   user: User;
   signUpForm: FormGroup;
   profilesType: Array<string> = User.getProfilesType();
+  errorMessage: string;
   dateMinRequired = moment().subtract(User.AGE_MIN_REQUIRED, 'years').toDate();
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -27,11 +28,11 @@ export class SignUpPage implements OnInit {
 
   initForm() {
     this.signUpForm = this.formBuilder.group({
-      dateOfBirth: ['', [Validators.required]],
+      dateOfBirth: [null, []],
       profileType: ['', [Validators.required]],
       userName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      privacyPolicy: ['', [Validators.requiredTrue]],
+      privacyPolicy: [false, [Validators.requiredTrue]],
       password: ['', [Validators.required, Validators.pattern(User.REGEX_PASSWORD)]]
     });
   }
@@ -40,7 +41,21 @@ export class SignUpPage implements OnInit {
     const { email, password, dateOfBirth, profileType, userName, privacyPolicy} = this.signUpForm.value;
     if (privacyPolicy) {
       this.user = new User(userName, dateOfBirth, email, password, profileType);
-      this.authService.createUser(this.user);
+      this.userService
+        .createUser(this.user)
+        .subscribe((user) => {
+          // @todo redirect user
+        }, (error) => {
+          this.errorMessage = error.error;
+        });
     }
+  }
+
+  onSignUpGoogle() {
+    console.log('onSignUpGoogle');
+  }
+
+  onSignUpFacebook() {
+    console.log('onSignUpFacebook');
   }
 }

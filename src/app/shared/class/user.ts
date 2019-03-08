@@ -6,6 +6,10 @@ export class User {
   static AGE_MIN_REQUIRED     = 13;
   static REGEX_PASSWORD       = /[0-9a-zA-Z]{6,}/;
 
+  private _id: string;
+  private _createdAt: Date;
+  private _updatedAt: Date;
+
   constructor(
     private _userName: string,
     private _dateOfBirth: Date,
@@ -13,6 +17,14 @@ export class User {
     private _password: string,
     private _profileType: string,
   ) {}
+
+  get id(): string {
+    return this._id;
+  }
+
+  set id(value: string) {
+    this._id = value;
+  }
 
   get userName(): string {
     return this._userName;
@@ -52,6 +64,22 @@ export class User {
 
   set password(value: string) {
     this._password = value;
+  }
+
+  get createdAt(): Date {
+    return this._createdAt;
+  }
+
+  set createdAt(value: Date) {
+    this._createdAt = value;
+  }
+
+  get updatedAt(): Date {
+    return this._updatedAt;
+  }
+
+  set updatedAt(value: Date) {
+    this._updatedAt = value;
   }
 
   static getProfilesType(): Array<string> {
