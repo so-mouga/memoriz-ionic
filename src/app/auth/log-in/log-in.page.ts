@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { AuthService } from '../../shared/service/auth/auth.service';
+import { AuthService } from '@app/shared/service/auth/auth.service';
 
 @Component({
   selector: 'app-log-in',
@@ -46,8 +46,8 @@ export class LogInPage implements OnInit {
     this.navCtrl.navigateForward( ['/sign-up']);
   }
 
-  onLogInGoole() {
-    console.log('log in goole');
+  onLogInGoogle() {
+    console.log('log in google');
   }
 
   onLogInFacebook() {

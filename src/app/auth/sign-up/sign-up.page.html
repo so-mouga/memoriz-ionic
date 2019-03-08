@@ -1,6 +1,9 @@
 <ion-content padding>
     <h2 text-center="center">Create your account</h2>
-
+    <div>
+        <ion-button (click)="onSignUpGoogle()">with Google</ion-button>
+        <ion-button (click)="onSignUpFacebook()">with Facebook</ion-button>
+    </div>
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         <ion-list>
             <ion-list>
@@ -42,7 +45,9 @@
                     </p>
                 </ion-list>
             </ion-item>
-
+            <ion-text color="danger">
+                <p>{{ errorMessage }}</p>
+            </ion-text>
             <ion-button
                     type="submit"
                     [disabled]="signUpForm.invalid"
