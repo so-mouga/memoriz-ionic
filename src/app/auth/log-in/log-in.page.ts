@@ -40,17 +40,7 @@ export class LogInPage implements OnInit {
 
   onLostPassword() {
     console.log('lost password');
-  }
-
-  onSignUp() {
-    this.navCtrl.navigateForward( ['/sign-up']);
-  }
-
-  onLogInGoogle() {
-    console.log('log in google');
-  }
-
-  onLogInFacebook() {
-    console.log('log in facebook');
+    // todo create page /password-reset
+    // this.navCtrl.navigateForward( ['/password-reset']);
   }
 }
