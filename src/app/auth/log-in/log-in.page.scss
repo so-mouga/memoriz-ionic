@@ -1,9 +1,40 @@
-.bloc-auth-up {
-  padding-left: 5px;
-  padding-right: 5px;
-  color: white;
-  background-color: black;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+ion-grid {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+ion-header::after {
+  background-image: none;
+  border-bottom: 1px solid #d9dadc;
+}
+
+.reset-password-link, h4 {
+  color: var(--ion-color-primary-application);
+}
+
+.create-account {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.create-account p {
+  font-size: 18px;
+  font-family: inherit;
+  font-weight: 900;
+  line-height: 1.1;
+  color: inherit;
+}
+
+.separator {
+  border-top: 1px solid #d9dadc;
+  display: block;
+  line-height: 1px;
+  margin: 15px 0;
+  position: relative;
+  text-align: center;
+}
+
+// Mobile
+@media (min-width: 240px) and (max-width: 768px) {
 }
