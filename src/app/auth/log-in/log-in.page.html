@@ -8,9 +8,7 @@
   <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
   <ion-row justify-content-center>
     <ion-col align-self-center size-md="7" size-lg="5" size-xs="12">
-      <div text-center>
-        <h4>Se connecter</h4>
-      </div>
+      <h2 text-center="center" class="text-color-primary">Se connecter</h2>
 
       <div padding>
         <ion-input padding margin-bottom="10px" class="input-field-text" type="email" formControlName="email" placeholder="Adresse email" ></ion-input>
@@ -29,7 +27,7 @@
   <ion-row justify-content-center>
     <ion-col align-self-center align-items-center size-md="7" size-lg="5" size-xs="12" >
       <p text-center (click)="onLostPassword()">
-        <a class="reset-password-link">Mot de passe oublié ?</a>
+        <a class="text-color-primary">Mot de passe oublié ?</a>
       </p>
     </ion-col>
   </ion-row>

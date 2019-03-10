@@ -1,63 +1,74 @@
-<ion-content padding>
-    <h2 text-center="center">Create your account</h2>
-    <div>
-        <ion-button (click)="onSignUpGoogle()">with Google</ion-button>
-        <ion-button (click)="onSignUpFacebook()">with Facebook</ion-button>
-    </div>
-    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-        <ion-list>
-            <ion-list>
-                <ion-item>
-                    <ion-label>I am</ion-label>
-                    <ion-select formControlName="profileType" interface="popover">
-                        <ion-select-option *ngFor="let type of profilesType" value="{{ type }}">{{ type }}</ion-select-option>
-                    </ion-select>
-                </ion-item>
-            </ion-list>
+<ion-header>
+  <ion-toolbar align="center">
+    <img width="225px" src="assets/img/logo-1.png">
+  </ion-toolbar>
+</ion-header>
 
-            <ion-item>
-                <ion-label position="stacked">Date of birth</ion-label>
-                <ion-input type="date" max="{{ dateMinRequired | date: 'yyyy-MM-dd'}}" formControlName="dateOfBirth" ></ion-input>
-            </ion-item>
+<ion-grid>
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="7" size-lg="5" size-xs="12">
+        <h2 text-center="center" class="text-color-primary">Créer un compte</h2>
+        <ion-text color="danger">
+          <p text-center>{{ errorMessage }}</p>
+        </ion-text>
 
-            <ion-item>
-                <ion-label position="stacked">Pick a username</ion-label>
-                <ion-input type="string" formControlName="userName"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label position="stacked">Add your email address</ion-label>
-                <ion-input type="email" formControlName="email"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label position="stacked">Create a password</ion-label>
-                <ion-input type="password" formControlName="password"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-list>
-                    <ion-checkbox checked="false" formControlName="privacyPolicy"></ion-checkbox>
-                    <p>
-                        I have read and agree with the Memoriz! Terms and Conditions.
-                        Memoriz! will collect and process data as described in the
-                        Privacy Policy and Children's Privacy Policy. (required)
-                    </p>
-                </ion-list>
-            </ion-item>
-            <ion-text color="danger">
-                <p>{{ errorMessage }}</p>
-            </ion-text>
-            <ion-button
-                    type="submit"
-                    [disabled]="signUpForm.invalid"
-                    shape="round"
-                    size="default"
-                    color="primary"
-                    expand="block"
-            >
-                Join Memoriz!
-            </ion-button>
-        </ion-list>
-    </form>
-</ion-content>
+        <ion-item>
+          <ion-label>Je suis</ion-label>
+          <ion-select formControlName="profileType" interface="popover">
+            <ion-select-option *ngFor="let type of profilesType" value="{{ type }}">{{ type }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-input
+          padding
+          max="{{ dateMinRequired | date: 'yyyy-MM-dd'}}"
+          class="input-field-text"
+          type="date"
+          formControlName="dateOfBirth"
+          placeholder="Date de naissance">
+        </ion-input>
+        <ion-input
+          padding
+          class="input-field-text"
+          type="string"
+          formControlName="userName"
+          placeholder="Choisie ton pseudo">
+        </ion-input>
+        <ion-input
+          padding
+          class="input-field-text"
+          type="email"
+          formControlName="email"
+          placeholder="Adresse email">
+        </ion-input>
+        <ion-input
+          padding
+          class="input-field-text"
+          type="password"
+          formControlName="password"
+          placeholder="Mot de passe">
+        </ion-input>
+        <div class="bloc-terms">
+          <ion-checkbox checked="false" formControlName="privacyPolicy"></ion-checkbox>
+          <p>
+            I have read and agree with the Application! Terms and Conditions.
+            Application! will collect and process data as described in the
+            Privacy Policy and Children's Privacy Policy. (required)
+          </p>
+        </div>
+        <ion-button
+          [disabled]="signUpForm.invalid"
+          class="button-style"
+          type="submit"
+          shape="round"
+          size="default"
+          expand="block"
+          color="primary-application"
+        >
+          S'inscrire
+        </ion-button>
+        <p text-center>Vous avez déjà un compte ? <a routerLink="/log-in" routerDirection="forward" class="text-color-primary">Connexion</a></p>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-grid>
