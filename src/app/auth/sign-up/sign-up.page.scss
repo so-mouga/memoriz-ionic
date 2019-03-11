@@ -1,0 +1,24 @@
+ion-header::after {
+  background-image: none;
+  border-bottom: 1px solid #d9dadc;
+}
+
+ion-grid {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+ion-input {
+  margin-top: 15px;
+}
+
+.bloc-terms {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.bloc-terms p {
+  width: 90%;
+}
