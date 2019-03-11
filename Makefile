@@ -82,3 +82,11 @@ infra-up:
 ## to run app
 infra-up-mobile-display:
 	ionic serve --lab
+
+## to show files that need to be fixed
+app-cs-check:
+	npm run prettier:check
+
+## to fix files that need to be fixed
+app-cs-fix:
+	npm run prettier:fix
