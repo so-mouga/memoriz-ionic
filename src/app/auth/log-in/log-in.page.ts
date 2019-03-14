@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '@app/shared/service/auth/auth.service';
 
@@ -9,14 +14,13 @@ import { AuthService } from '@app/shared/service/auth/auth.service';
   styleUrls: ['./log-in.page.scss'],
 })
 export class LogInPage implements OnInit {
-
   logInForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private authService: AuthService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -25,12 +29,15 @@ export class LogInPage implements OnInit {
   initForm() {
     this.logInForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
+      password: [
+        '',
+        [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)],
+      ],
     });
   }
 
   onSubmit() {
-    const email    = this.logInForm.get('email').value;
+    const email = this.logInForm.get('email').value;
     const password = this.logInForm.get('password').value;
 
     if (email && password) {

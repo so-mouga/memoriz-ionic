@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import {User} from '@app/shared/class/user';
-
+import { User } from '@app/shared/class/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  constructor() { }
+  constructor() {}
 
   signInUser(email: string, password: string) {
     console.log(email);
