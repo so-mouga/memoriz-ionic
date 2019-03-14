@@ -1,10 +1,9 @@
 export class User {
-
   static PROFILE_TYPE_TEACHER = 'teacher';
   static PROFILE_TYPE_STUDENT = 'student';
-  static PROFILE_TYPE_OTHER   = 'other';
-  static AGE_MIN_REQUIRED     = 13;
-  static REGEX_PASSWORD       = /[0-9a-zA-Z]{6,}/;
+  static PROFILE_TYPE_OTHER = 'other';
+  static AGE_MIN_REQUIRED = 13;
+  static REGEX_PASSWORD = /[0-9a-zA-Z]{6,}/;
 
   private _id: string;
   private _createdAt: Date;

@@ -1,31 +1,58 @@
 <ion-header>
   <ion-toolbar align="center">
-    <img width="225px" src="assets/img/logo-1.png">
+    <img width="225px" src="assets/img/logo-1.png" />
   </ion-toolbar>
 </ion-header>
 
 <ion-grid>
   <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
-  <ion-row justify-content-center>
-    <ion-col align-self-center size-md="7" size-lg="5" size-xs="12">
-      <h2 text-center="center" class="text-color-primary">Se connecter</h2>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="7" size-lg="5" size-xs="12">
+        <h2 text-center="center" class="text-color-primary">Se connecter</h2>
 
-      <div padding>
-        <ion-input padding margin-bottom="10px" class="input-field-text" type="email" formControlName="email" placeholder="Adresse email" ></ion-input>
-        <ion-input padding class="input-field-text" type="password" formControlName="password" placeholder="Mot de passe"></ion-input>
-      </div>
+        <div padding>
+          <ion-input
+            padding
+            margin-bottom="10px"
+            class="input-field-text"
+            type="email"
+            formControlName="email"
+            placeholder="Adresse email"
+          ></ion-input>
+          <ion-input
+            padding
+            class="input-field-text"
+            type="password"
+            formControlName="password"
+            placeholder="Mot de passe"
+          ></ion-input>
+        </div>
 
-      <div padding>
-        <ion-button [disabled]="logInForm.invalid" class="button-style" type="submit"  shape="round" size="default" expand="block"  color="primary-application">
-          Se connecter
-        </ion-button>
-      </div>
-    </ion-col>
-  </ion-row>
+        <div padding>
+          <ion-button
+            [disabled]="logInForm.invalid"
+            class="button-style"
+            type="submit"
+            shape="round"
+            size="default"
+            expand="block"
+            color="primary-application"
+          >
+            Se connecter
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
   </form>
 
   <ion-row justify-content-center>
-    <ion-col align-self-center align-items-center size-md="7" size-lg="5" size-xs="12" >
+    <ion-col
+      align-self-center
+      align-items-center
+      size-md="7"
+      size-lg="5"
+      size-xs="12"
+    >
       <p text-center (click)="onLostPassword()">
         <a class="text-color-primary">Mot de passe oublié ?</a>
       </p>
@@ -33,11 +60,25 @@
   </ion-row>
 
   <ion-row class="create-account" justify-content-center>
-    <ion-col align-self-center align-items-center size-md="7" size-lg="5" size-xs="12" >
-      <div class="separator">
-      </div>
+    <ion-col
+      align-self-center
+      align-items-center
+      size-md="7"
+      size-lg="5"
+      size-xs="12"
+    >
+      <div class="separator"></div>
       <p text-center>Vous n'avez pas de compte ?</p>
-      <ion-button routerLink="/sign-up" routerDirection="forward" class="button-style" type="submit"  shape="round" size="default" expand="block" color="dark">
+      <ion-button
+        routerLink="/sign-up"
+        routerDirection="forward"
+        class="button-style"
+        type="submit"
+        shape="round"
+        size="default"
+        expand="block"
+        color="dark"
+      >
         Créer un compte
       </ion-button>
     </ion-col>

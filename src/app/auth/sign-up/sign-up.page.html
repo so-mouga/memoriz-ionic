@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar align="center">
-    <img width="225px" src="assets/img/logo-1.png">
+    <img width="225px" src="assets/img/logo-1.png" />
   </ion-toolbar>
 </ion-header>
 
@@ -16,7 +16,11 @@
         <ion-item>
           <ion-label>Je suis</ion-label>
           <ion-select formControlName="profileType" interface="popover">
-            <ion-select-option *ngFor="let type of profilesType" value="{{ type }}">{{ type }}</ion-select-option>
+            <ion-select-option
+              *ngFor="let type of profilesType"
+              value="{{ type }}"
+              >{{ type }}</ion-select-option
+            >
           </ion-select>
         </ion-item>
         <ion-input
@@ -25,31 +29,38 @@
           class="input-field-text"
           type="date"
           formControlName="dateOfBirth"
-          placeholder="Date de naissance">
+          placeholder="Date de naissance"
+        >
         </ion-input>
         <ion-input
           padding
           class="input-field-text"
           type="string"
           formControlName="userName"
-          placeholder="Choisie ton pseudo">
+          placeholder="Choisie ton pseudo"
+        >
         </ion-input>
         <ion-input
           padding
           class="input-field-text"
           type="email"
           formControlName="email"
-          placeholder="Adresse email">
+          placeholder="Adresse email"
+        >
         </ion-input>
         <ion-input
           padding
           class="input-field-text"
           type="password"
           formControlName="password"
-          placeholder="Mot de passe">
+          placeholder="Mot de passe"
+        >
         </ion-input>
         <div class="bloc-terms">
-          <ion-checkbox checked="false" formControlName="privacyPolicy"></ion-checkbox>
+          <ion-checkbox
+            checked="false"
+            formControlName="privacyPolicy"
+          ></ion-checkbox>
           <p>
             I have read and agree with the Application! Terms and Conditions.
             Application! will collect and process data as described in the
@@ -67,7 +78,15 @@
         >
           S'inscrire
         </ion-button>
-        <p text-center>Vous avez déjà un compte ? <a routerLink="/log-in" routerDirection="forward" class="text-color-primary">Connexion</a></p>
+        <p text-center>
+          Vous avez déjà un compte ?
+          <a
+            routerLink="/log-in"
+            routerDirection="forward"
+            class="text-color-primary"
+            >Connexion</a
+          >
+        </p>
       </ion-col>
     </ion-row>
   </form>

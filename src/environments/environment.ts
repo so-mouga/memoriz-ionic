@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   domain_server: 'http://localhost:3000',
-  application_name: 'memo-riz'
+  application_name: 'memo-riz',
 };
 
 /*
