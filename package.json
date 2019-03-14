@@ -4,6 +4,8 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
+    "prettier:fix": "./node_modules/prettier/bin-prettier.js --write \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss,.html,component.html,component.scss}\"",
+    "prettier:check": "./node_modules/prettier/bin-prettier.js --check \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss,.html,component.html,component.scss}\"",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -52,6 +54,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "prettier": "^1.16.4",
     "protractor": "~5.4.0",
     "ts-node": "~8.0.0",
     "tslint": "~5.12.0",
