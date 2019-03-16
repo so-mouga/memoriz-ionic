@@ -1,0 +1,24 @@
+dist: trusty
+sudo: false
+
+language: node_js
+node_js:
+  - '9'
+
+cache:
+  directories:
+    - ./node_modules
+
+install:
+  - npm install
+
+script:
+  - make app-cs-check
+
+notifications:
+  slack:
+    rooms:
+      - ipssi-d19-1:3U0tNTwfovSqXR04sBm4G5HQ#memo-riz
+      - project-memoriz:eNwxdTjBPUILq82810LqAtle#general
+    on_success: change
+    on_failure: always
