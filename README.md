@@ -4,7 +4,7 @@
     </a>
 </p>
 
-[![Build Status](https://travis-ci.com/so-mouga/memoriz-front.svg?branch=develop)](https://travis-ci.com/so-mouga/memoriz-front)
+[![Build Status](https://travis-ci.org/so-mouga/memoriz-front.svg?branch=develop)](https://travis-ci.org/so-mouga/memoriz-front)
 
 ## Description
 
