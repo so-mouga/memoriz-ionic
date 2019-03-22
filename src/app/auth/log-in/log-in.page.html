@@ -28,6 +28,10 @@
           ></ion-input>
         </div>
 
+        <ion-text color="danger">
+          <p text-center="center"  >{{ errorMessage }}</p>
+        </ion-text>
+
         <div padding>
           <ion-button
             [disabled]="logInForm.invalid"

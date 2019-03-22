@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import {NavController} from '@ionic/angular';
 import { AuthService } from '@app/shared/service/auth/auth.service';
 
 @Component({
@@ -15,12 +14,17 @@ import { AuthService } from '@app/shared/service/auth/auth.service';
 })
 export class LogInPage implements OnInit {
   logInForm: FormGroup;
+  errorMessage: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private authService: AuthService,
-  ) {}
+  ) {
+    if (this.authService.isAuthenticated()) {
+      this.navCtrl.navigateForward(['/dashboard']);
+    }
+  }
 
   ngOnInit() {
     this.initForm();
@@ -28,25 +32,26 @@ export class LogInPage implements OnInit {
 
   initForm() {
     this.logInForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['userNamfrefd@toto.fr', [Validators.required, Validators.email]],
       password: [
-        '',
-        [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)],
+        'password',
+        [Validators.required],
       ],
     });
   }
 
   onSubmit() {
-    const email = this.logInForm.get('email').value;
-    const password = this.logInForm.get('password').value;
+    const { email, password } = this.logInForm.value;
 
     if (email && password) {
-      this.authService.signInUser(email, password);
+      this.authService.signInUser(email, password).subscribe(
+        data => this.navCtrl.navigateForward(['/dashboard']),
+        e => this.errorMessage = 'Votre email ou mot de passe est incorrect.'
+      );
     }
   }
 
   onLostPassword() {
-    console.log('lost password');
     // todo create page /password-reset
     // this.navCtrl.navigateForward( ['/password-reset']);
   }

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '@app/shared/class/user';
 import * as moment from 'moment';
 import { UserService } from '@app/shared/service/user/user.service';
+import {NavController} from '@ionic/angular';
+import {AuthService} from '@app/shared/service/auth/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,7 +23,13 @@ export class SignUpPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-  ) {}
+    private navCtrl: NavController,
+    private authService: AuthService,
+  ) {
+    if (this.authService.isAuthenticated()) {
+      this.navCtrl.navigateForward(['/dashboard']);
+    }
+  }
 
   ngOnInit() {
     this.initForm();
@@ -61,13 +69,5 @@ export class SignUpPage implements OnInit {
         },
       );
     }
-  }
-
-  onSignUpGoogle() {
-    console.log('onSignUpGoogle');
-  }
-
-  onSignUpFacebook() {
-    console.log('onSignUpFacebook');
   }
 }
