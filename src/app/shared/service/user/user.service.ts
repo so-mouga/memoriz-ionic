@@ -2,13 +2,9 @@ import { Injectable } from '@angular/core';
 import { User } from '@app/shared/class/user';
 import { environment } from '@environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 const domainServer = environment.domain_server;
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-};
 
 @Injectable({
   providedIn: 'root',

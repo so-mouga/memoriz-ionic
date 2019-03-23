@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '@app/shared/class/user';
 import * as moment from 'moment';
 import { UserService } from '@app/shared/service/user/user.service';
+import { NavController } from '@ionic/angular';
+import { AuthService } from '@app/shared/service/auth/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,7 +23,15 @@ export class SignUpPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-  ) {}
+    private navCtrl: NavController,
+    private authService: AuthService,
+  ) {
+    this.authService.hasToken().then(hasToken => {
+      if (hasToken) {
+        this.navCtrl.navigateForward(['/dashboard']);
+      }
+    });
+  }
 
   ngOnInit() {
     this.initForm();
@@ -34,22 +44,12 @@ export class SignUpPage implements OnInit {
       userName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       privacyPolicy: [false, [Validators.requiredTrue]],
-      password: [
-        '',
-        [Validators.required, Validators.pattern(User.REGEX_PASSWORD)],
-      ],
+      password: ['', [Validators.required, Validators.pattern(User.REGEX_PASSWORD)]],
     });
   }
 
   onSubmit() {
-    const {
-      email,
-      password,
-      dateOfBirth,
-      profileType,
-      userName,
-      privacyPolicy,
-    } = this.signUpForm.value;
+    const { email, password, dateOfBirth, profileType, userName, privacyPolicy } = this.signUpForm.value;
     if (privacyPolicy) {
       this.user = new User(userName, dateOfBirth, email, password, profileType);
       this.userService.createUser(this.user).subscribe(
@@ -61,13 +61,5 @@ export class SignUpPage implements OnInit {
         },
       );
     }
-  }
-
-  onSignUpGoogle() {
-    console.log('onSignUpGoogle');
-  }
-
-  onSignUpFacebook() {
-    console.log('onSignUpFacebook');
   }
 }
