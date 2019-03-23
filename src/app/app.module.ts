@@ -16,18 +16,16 @@ import { environment } from '@environments/environment';
 import { TOKEN_KEY } from '@app/shared/service/auth/auth.service';
 
 const domainServer = environment.domain_server;
-const domainServerUrn = domainServer.replace(/^http(s?):\/\//i, "");
+const domainServerUrn = domainServer.replace(/^http(s?):\/\//i, '');
 
 export function jwtOptionsFactory(storage) {
   return {
     tokenGetter: () => {
-        return localStorage.getItem(TOKEN_KEY);
-      },
+      return storage.get(TOKEN_KEY);
+    },
     whitelistedDomains: [domainServerUrn],
-    blacklistedRoutes: [
-      `${domainServerUrn}/api/auth/login/`,
-    ]
-  }
+    blacklistedRoutes: [`${domainServerUrn}/api/auth/login/`],
+  };
 }
 
 @NgModule({
@@ -45,14 +43,10 @@ export function jwtOptionsFactory(storage) {
         provide: JWT_OPTIONS,
         useFactory: jwtOptionsFactory,
         deps: [Storage],
-      }
-    })
+      },
+    }),
   ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  ],
+  providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import {NavController} from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavController } from '@ionic/angular';
 import { AuthService } from '@app/shared/service/auth/auth.service';
 
 @Component({
@@ -16,14 +12,12 @@ export class LogInPage implements OnInit {
   logInForm: FormGroup;
   errorMessage: string;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private navCtrl: NavController,
-    private authService: AuthService,
-  ) {
-    if (this.authService.isAuthenticated()) {
-      this.navCtrl.navigateForward(['/dashboard']);
-    }
+  constructor(private formBuilder: FormBuilder, private navCtrl: NavController, private authService: AuthService) {
+    this.authService.hasToken().then(hasToken => {
+      if (hasToken) {
+        this.navCtrl.navigateForward(['/dashboard']);
+      }
+    });
   }
 
   ngOnInit() {
@@ -32,11 +26,8 @@ export class LogInPage implements OnInit {
 
   initForm() {
     this.logInForm = this.formBuilder.group({
-      email: ['userNamfrefd@toto.fr', [Validators.required, Validators.email]],
-      password: [
-        'password',
-        [Validators.required],
-      ],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -44,10 +35,12 @@ export class LogInPage implements OnInit {
     const { email, password } = this.logInForm.value;
 
     if (email && password) {
-      this.authService.signInUser(email, password).subscribe(
-        data => this.navCtrl.navigateForward(['/dashboard']),
-        e => this.errorMessage = 'Votre email ou mot de passe est incorrect.'
-      );
+      this.authService
+        .logInUser(email, password)
+        .subscribe(
+          data => this.navCtrl.navigateForward(['/dashboard']),
+          e => (this.errorMessage = 'Votre email ou mot de passe est incorrect.'),
+        );
     }
   }
 

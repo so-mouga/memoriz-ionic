@@ -16,11 +16,7 @@
         <ion-item>
           <ion-label>Je suis</ion-label>
           <ion-select formControlName="profileType" interface="popover">
-            <ion-select-option
-              *ngFor="let type of profilesType"
-              value="{{ type }}"
-              >{{ type }}</ion-select-option
-            >
+            <ion-select-option *ngFor="let type of profilesType" value="{{ type }}">{{ type }}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-input
@@ -40,13 +36,7 @@
           placeholder="Choisie ton pseudo"
         >
         </ion-input>
-        <ion-input
-          padding
-          class="input-field-text"
-          type="email"
-          formControlName="email"
-          placeholder="Adresse email"
-        >
+        <ion-input padding class="input-field-text" type="email" formControlName="email" placeholder="Adresse email">
         </ion-input>
         <ion-input
           padding
@@ -57,14 +47,10 @@
         >
         </ion-input>
         <div class="bloc-terms">
-          <ion-checkbox
-            checked="false"
-            formControlName="privacyPolicy"
-          ></ion-checkbox>
+          <ion-checkbox checked="false" formControlName="privacyPolicy"></ion-checkbox>
           <p>
-            I have read and agree with the Application! Terms and Conditions.
-            Application! will collect and process data as described in the
-            Privacy Policy and Children's Privacy Policy. (required)
+            I have read and agree with the Application! Terms and Conditions. Application! will collect and process data
+            as described in the Privacy Policy and Children's Privacy Policy. (required)
           </p>
         </div>
         <ion-button
@@ -80,12 +66,7 @@
         </ion-button>
         <p text-center>
           Vous avez déjà un compte ?
-          <a
-            routerLink="/log-in"
-            routerDirection="forward"
-            class="text-color-primary"
-            >Connexion</a
-          >
+          <a routerLink="/log-in" routerDirection="forward" class="text-color-primary">Connexion</a>
         </p>
       </ion-col>
     </ion-row>

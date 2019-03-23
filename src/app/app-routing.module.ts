@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './dashboard/dashboard.module#DashboardPageModule',
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
   },
 ];
 

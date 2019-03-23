@@ -82,10 +82,6 @@ export class User {
   }
 
   static getProfilesType(): Array<string> {
-    return [
-      this.PROFILE_TYPE_TEACHER,
-      this.PROFILE_TYPE_STUDENT,
-      this.PROFILE_TYPE_OTHER,
-    ];
+    return [this.PROFILE_TYPE_TEACHER, this.PROFILE_TYPE_STUDENT, this.PROFILE_TYPE_OTHER];
   }
 }
