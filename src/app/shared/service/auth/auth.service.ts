@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 const domainServer = environment.domain_server;
@@ -53,6 +53,9 @@ export class AuthService {
           const decoded = this.JwtHelper.decodeToken(res.token);
           this.authenticationState.next(true);
           // todo decoded.data send user in userSubject userManager
+        }),
+        catchError(e => {
+          throw new Error(e);
         }),
       );
   }

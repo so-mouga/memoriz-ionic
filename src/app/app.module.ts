@@ -10,10 +10,11 @@ import { Storage, IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { environment } from '@environments/environment';
 import { TOKEN_KEY } from '@app/shared/service/auth/auth.service';
+import { ErrorInterceptor } from '@app/helpers/error-interceptor/error.interceptor';
 
 const domainServer = environment.domain_server;
 const domainServerUrn = domainServer.replace(/^http(s?):\/\//i, '');
@@ -46,7 +47,12 @@ export function jwtOptionsFactory(storage) {
       },
     }),
   ],
-  providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
