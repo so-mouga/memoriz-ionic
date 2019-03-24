@@ -12,11 +12,8 @@ const routes: Routes = [
     path: 'log-in',
     loadChildren: './auth/log-in/log-in.module#LogInPageModule',
   },
-  {
-    path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardPageModule',
-    canActivate: [AuthGuardService],
-  },
+  { path: 'home', loadChildren: './tabs/tabs.module#TabsPageModule' },
+  { path: '**', redirectTo: 'log-in' },
 ];
 
 @NgModule({

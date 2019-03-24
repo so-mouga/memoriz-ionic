@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://zupimages.net/up/19/11/symc.png">
-        <img src="https://zupimages.net/up/19/11/symc.png" width="500">
+    <a href="https://zupimages.net/up/19/12/idso.png">
+        <img src="https://zupimages.net/up/19/12/idso.png" alt="logo" width="500"/>
     </a>
 </p>
 
