@@ -28,7 +28,7 @@ export class SignUpPage implements OnInit {
   ) {
     this.authService.hasToken().then(hasToken => {
       if (hasToken) {
-        this.navCtrl.navigateForward(['/dashboard']);
+        this.navCtrl.navigateForward(['/home', 'board']);
       }
     });
   }
@@ -54,7 +54,7 @@ export class SignUpPage implements OnInit {
       this.user = new User(userName, dateOfBirth, email, password, profileType);
       this.userService.createUser(this.user).subscribe(
         user => {
-          // @todo redirect user
+          this.navCtrl.navigateForward(['/home', 'board']);
         },
         error => {
           this.errorMessage = error.error;
