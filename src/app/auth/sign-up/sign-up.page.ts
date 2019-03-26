@@ -26,11 +26,9 @@ export class SignUpPage implements OnInit {
     private navCtrl: NavController,
     private authService: AuthService,
   ) {
-    this.authService.hasToken().then(hasToken => {
-      if (hasToken) {
-        this.navCtrl.navigateForward(['/home', 'board']);
-      }
-    });
+    if (this.authService.currentAuthenticationValue) {
+      this.navCtrl.navigateForward(['/home', 'board']);
+    }
   }
 
   ngOnInit() {
@@ -49,12 +47,11 @@ export class SignUpPage implements OnInit {
   }
 
   onSubmit() {
-    const { email, password, dateOfBirth, profileType, userName, privacyPolicy } = this.signUpForm.value;
+    const { privacyPolicy } = this.signUpForm.value;
     if (privacyPolicy) {
-      this.user = new User(userName, dateOfBirth, email, password, profileType);
-      this.userService.createUser(this.user).subscribe(
+      this.userService.createUser(this.signUpForm.value).subscribe(
         user => {
-          this.navCtrl.navigateForward(['/home', 'board']);
+          // todo implement auth after create account
         },
         error => {
           this.errorMessage = error.error;

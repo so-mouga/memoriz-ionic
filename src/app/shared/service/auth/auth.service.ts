@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { Storage } from '@ionic/storage';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserInterface } from '@app/shared/class/user';
+import { UserService } from '@app/shared/service/user/user.service';
 
 const domainServer = environment.domain_server;
 export const TOKEN_KEY = 'access_token';
@@ -19,26 +20,26 @@ interface UserAuthInterface {
   providedIn: 'root',
 })
 export class AuthService {
-  authenticationState = new BehaviorSubject(false);
+  authenticationState = new BehaviorSubject(null);
 
-  constructor(public http: HttpClient, private storage: Storage, private JwtHelper: JwtHelperService) {}
+  constructor(private http: HttpClient, private JwtHelper: JwtHelperService, private userService: UserService) {
+    this.checkToken();
+  }
 
-  isAuthenticated(): boolean {
+  get currentAuthenticationValue(): UserInterface {
     return this.authenticationState.value;
   }
 
-  async hasToken(): Promise<boolean> {
-    const token = await this.storage.get(TOKEN_KEY);
+  checkToken(): void {
+    const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
-      const decoded = this.JwtHelper.decodeToken(token);
       if (!this.JwtHelper.isTokenExpired(token)) {
-        // this.user = decoded.data; todo send user in userSubject userManager
-        this.authenticationState.next(true);
+        const decoded = this.JwtHelper.decodeToken(token);
+        this.authenticationState.next(decoded.data);
       } else {
         this.clearToken();
       }
     }
-    return this.authenticationState.value;
   }
 
   logInUser(email: string, password: string): Observable<UserAuthInterface> {
@@ -49,10 +50,9 @@ export class AuthService {
       })
       .pipe(
         tap(res => {
-          this.storage.set(TOKEN_KEY, res.token);
+          localStorage.setItem(TOKEN_KEY, res.token);
           const decoded = this.JwtHelper.decodeToken(res.token);
-          this.authenticationState.next(true);
-          // todo decoded.data send user in userSubject userManager
+          this.authenticationState.next(decoded.data);
         }),
         catchError(e => {
           throw new Error(e);
@@ -60,9 +60,8 @@ export class AuthService {
       );
   }
 
-  clearToken() {
-    this.storage.remove(TOKEN_KEY).then(() => {
-      this.authenticationState.next(false);
-    });
+  clearToken(): void {
+    localStorage.removeItem(TOKEN_KEY);
+    this.authenticationState.next(false);
   }
 }

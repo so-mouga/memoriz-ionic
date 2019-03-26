@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { User } from '@app/shared/class/user';
+import { User, UserInterface } from '@app/shared/class/user';
 import { environment } from '@environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 const domainServer = environment.domain_server;
 
@@ -10,15 +11,35 @@ const domainServer = environment.domain_server;
   providedIn: 'root',
 })
 export class UserService {
-  constructor(public http: HttpClient) {}
+  user: User;
+  currentUserSubject: BehaviorSubject<User>;
+  currentUserOservable: Observable<User>;
+
+  constructor(public http: HttpClient) {
+    this.user = new User();
+    this.currentUserSubject = new BehaviorSubject<User>(null);
+    this.currentUserOservable = this.currentUserSubject.asObservable();
+  }
+
+  emitUser() {
+    this.currentUserSubject.next(this.user);
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
+
+  getInfoUser(id: number): Observable<User> {
+    return this.http.get(`${domainServer}/api/users/${id}`).pipe(
+      map((data: UserInterface) => {
+        this.user.makeUser(data);
+        this.emitUser();
+        return this.user;
+      }),
+    );
+  }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(`${domainServer}/api/users`, {
-      userName: user.userName,
-      profileType: user.profileType,
-      dateOfBirth: user.dateOfBirth,
-      email: user.email.trim().toLowerCase(),
-      password: user.password,
-    });
+    return this.http.post<User>(`${domainServer}/api/users`, user);
   }
 }

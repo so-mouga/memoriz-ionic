@@ -1,3 +1,14 @@
+export interface UserInterface {
+  id: number;
+  email: string;
+  dateOfBirth: string;
+  userName: string;
+  password: string;
+  profileType: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export class User {
   static PROFILE_TYPE_TEACHER = 'teacher';
   static PROFILE_TYPE_STUDENT = 'student';
@@ -8,15 +19,21 @@ export class User {
   private _id: string;
   private _createdAt: Date;
   private _updatedAt: Date;
+  private _userName: string;
+  private _dateOfBirth: Date;
+  private _email: string;
+  private _password: string;
+  private _profileType: string;
 
-  constructor(
-    private _userName: string,
-    private _dateOfBirth: Date,
-    private _email: string,
-    private _password: string,
-    private _profileType: string,
-  ) {}
+  static getProfilesType(): Array<string> {
+    return [this.PROFILE_TYPE_TEACHER, this.PROFILE_TYPE_STUDENT, this.PROFILE_TYPE_OTHER];
+  }
 
+  constructor() {}
+
+  public makeUser(user: UserInterface) {
+    Object.assign(this, user);
+  }
   get id(): string {
     return this._id;
   }
@@ -79,9 +96,5 @@ export class User {
 
   set updatedAt(value: Date) {
     this._updatedAt = value;
-  }
-
-  static getProfilesType(): Array<string> {
-    return [this.PROFILE_TYPE_TEACHER, this.PROFILE_TYPE_STUDENT, this.PROFILE_TYPE_OTHER];
   }
 }

@@ -22,7 +22,7 @@ const domainServerUrn = domainServer.replace(/^http(s?):\/\//i, '');
 export function jwtOptionsFactory(storage) {
   return {
     tokenGetter: () => {
-      return storage.get(TOKEN_KEY);
+      return localStorage.getItem(TOKEN_KEY);
     },
     whitelistedDomains: [domainServerUrn],
     blacklistedRoutes: [`${domainServerUrn}/api/auth/login/`],
