@@ -13,11 +13,9 @@ export class LogInPage implements OnInit {
   errorMessage: string;
 
   constructor(private formBuilder: FormBuilder, private navCtrl: NavController, private authService: AuthService) {
-    this.authService.hasToken().then(hasToken => {
-      if (hasToken) {
-        this.navCtrl.navigateForward(['/home', 'board']);
-      }
-    });
+    if (this.authService.currentAuthenticationValue) {
+      this.navCtrl.navigateForward(['/home', 'board']);
+    }
   }
 
   ngOnInit() {
@@ -33,7 +31,6 @@ export class LogInPage implements OnInit {
 
   onSubmit() {
     const { email, password } = this.logInForm.value;
-
     if (email && password) {
       this.authService
         .logInUser(email, password)
