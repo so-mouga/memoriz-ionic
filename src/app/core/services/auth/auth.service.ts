@@ -4,8 +4,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserInterface } from '@app/shared/class/user';
-import { UserService } from '@app/shared/service/user/user.service';
+import { UserInterface } from '@app/core/model/user';
+import { UserService } from '@app/core/services/user/user.service';
 
 const domainServer = environment.domain_server;
 export const TOKEN_KEY = 'access_token';

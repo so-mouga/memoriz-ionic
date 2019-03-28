@@ -7,6 +7,11 @@ import { ToastController } from '@ionic/angular';
 
 const domainServer = environment.domain_server;
 
+/**
+ * Error Interceptor
+ *
+ * Intercepts server domain down
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             duration: 5000,
           });
           toast.then(data => data.present());
+          //todo send message if server down
         }
 
         return throwError(err);
