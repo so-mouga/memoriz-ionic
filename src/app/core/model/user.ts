@@ -1,7 +1,7 @@
 export interface UserInterface {
-  id: number;
+  id: string;
   email: string;
-  dateOfBirth: string;
+  dateOfBirth?: Date;
   userName: string;
   password: string;
   profileType: string;
@@ -9,7 +9,7 @@ export interface UserInterface {
   updatedAt: Date;
 }
 
-export class User {
+export class User implements UserInterface {
   static PROFILE_TYPE_TEACHER = 'teacher';
   static PROFILE_TYPE_STUDENT = 'student';
   static PROFILE_TYPE_OTHER = 'other';
@@ -20,7 +20,7 @@ export class User {
   private _createdAt: Date;
   private _updatedAt: Date;
   private _userName: string;
-  private _dateOfBirth: Date;
+  private _dateOfBirth?: Date;
   private _email: string;
   private _password: string;
   private _profileType: string;
@@ -34,6 +34,7 @@ export class User {
   public makeUser(user: UserInterface) {
     Object.assign(this, user);
   }
+
   get id(): string {
     return this._id;
   }

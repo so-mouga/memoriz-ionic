@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '@app/shared/class/user';
+import { User } from '@app/core/model/user';
 import * as moment from 'moment';
-import { UserService } from '@app/shared/service/user/user.service';
+import { UserService } from '@app/core/services/user/user.service';
 import { NavController } from '@ionic/angular';
-import { AuthService } from '@app/shared/service/auth/auth.service';
+import { AuthService } from '@app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-sign-up',

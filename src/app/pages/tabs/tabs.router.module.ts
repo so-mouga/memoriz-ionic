@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-import { AuthGuardService } from '@app/guards/auth-guard.service';
+import { AuthGuardService } from '@app/core/guards/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../dashboard/dashboard.module#DashboardPageModule',
+            loadChildren: '@app/pages/dashboard/dashboard.module#DashboardPageModule',
             canActivate: [AuthGuardService],
           },
         ],
@@ -23,7 +23,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../game/create/create.module#CreatePageModule',
+            loadChildren: '@app/pages/game/create/create.module#CreatePageModule',
             canActivate: [AuthGuardService],
           },
         ],
@@ -33,7 +33,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../user/board/board.module#BoardPageModule',
+            loadChildren: '@app/pages/user/board/board.module#BoardPageModule',
             canActivate: [AuthGuardService],
           },
         ],
