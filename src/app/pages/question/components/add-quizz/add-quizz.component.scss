@@ -1,0 +1,52 @@
+.question-media-uploader {
+  background-color: #f2f2f2;
+  border: 0.1875rem dashed #ccc;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+
+.question-media-uploader ion-button,
+.bloc-answers ion-button {
+  width: 100%;
+}
+
+.bloc-answers ion-button p {
+  color: #3171e0;
+}
+
+.answer-input-field {
+  margin-bottom: 8px;
+}
+
+.answer-input-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.resource-media {
+  justify-content: flex-start;
+}
+
+.resource-media p {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 10px;
+}
+
+.bloc-add-quizz {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

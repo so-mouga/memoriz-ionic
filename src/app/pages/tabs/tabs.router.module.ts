@@ -19,21 +19,21 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'create',
-        children: [
-          {
-            path: '',
-            loadChildren: '@app/pages/game/create/create.module#CreatePageModule',
-            canActivate: [AuthGuardService],
-          },
-        ],
-      },
-      {
         path: 'user',
         children: [
           {
             path: '',
             loadChildren: '@app/pages/user/board/board.module#BoardPageModule',
+            canActivate: [AuthGuardService],
+          },
+        ],
+      },
+      {
+        path: 'question',
+        children: [
+          {
+            path: '',
+            loadChildren: '@app/pages/question/question.module#QuestionPageModule',
             canActivate: [AuthGuardService],
           },
         ],
