@@ -16,6 +16,9 @@ import { environment } from '@environments/environment';
 import { TOKEN_KEY } from '@app/core/services/auth/auth.service';
 import { ErrorInterceptor } from '@app/core/interceptors/error.interceptor';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+
 const domainServer = environment.domain_server;
 const domainServerUrn = domainServer.replace(/^http(s?):\/\//i, '');
 
@@ -39,6 +42,9 @@ export function jwtOptionsFactory(storage) {
     HttpClientModule,
     AppRoutingModule,
     IonicStorageModule.forRoot(),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
