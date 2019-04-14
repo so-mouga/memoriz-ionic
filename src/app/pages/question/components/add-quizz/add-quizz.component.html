@@ -1,6 +1,6 @@
 <ion-content>
   <ion-grid>
-    <h1 text-center>Quizz</h1>
+    <h1 text-center>Créer une question</h1>
 
     <form [formGroup]="quizzForm" (ngSubmit)="onSubmit()">
       <ion-row justify-content-center>
@@ -8,7 +8,9 @@
           <label for="add-question">Question</label>
           <ion-input id="add-question" padding class="input-field-text" type="string" formControlName="question">
           </ion-input>
-
+          <div margin-top margin-bottom>
+            <app-input-add-tag (sendTags)="getTags($event)"></app-input-add-tag>
+          </div>
           <ion-row class="question-media-uploader center-bloc-column">
             <label>Media</label>
             <ion-col size-xs="9">
@@ -41,11 +43,7 @@
                   <ion-input formControlName="answer" class="input-field-text" type="string"></ion-input>
                 </ion-col>
                 <ion-col class="center-bloc-column" size-xs="1">
-                  <ion-checkbox
-                    formControlName="isCorrectAnswer"
-                    style=" height: 30px; width: 30px;"
-                    color="success"
-                  ></ion-checkbox>
+                  <ion-checkbox formControlName="isCorrectAnswer" color="success"></ion-checkbox>
                 </ion-col>
                 <ion-button color="danger" *ngIf="answerIndex > 1" (click)="deleteAnswer(answerIndex)"
                   >remove</ion-button

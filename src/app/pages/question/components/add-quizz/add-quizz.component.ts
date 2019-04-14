@@ -20,6 +20,7 @@ export class AddQuizzComponent implements OnInit {
     this.quizzForm = this.formBuilder.group({
       question: ['', [Validators.required]],
       resource: [''],
+      tags: [''],
       answers: this.formBuilder.array([
         this.formBuilder.group({
           answer: ['', [Validators.required, Validators.minLength(1)]],
@@ -30,6 +31,12 @@ export class AddQuizzComponent implements OnInit {
           isCorrectAnswer: [false, Validators.required],
         }),
       ]),
+    });
+  }
+
+  getTags(tags: string[]) {
+    this.quizzForm.patchValue({
+      tags: tags,
     });
   }
 
