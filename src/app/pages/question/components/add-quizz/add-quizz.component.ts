@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { QuizzClass } from '@app/pages/question/models/quizz.class';
+import { AuthService } from '@app/core/services/auth/auth.service';
+import { QuestionService } from '@app/pages/question/services/question/question.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-quizz',
@@ -9,8 +13,14 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddQuizzComponent implements OnInit {
   maxAnswer = 6;
   quizzForm: FormGroup;
+  quizz = new QuizzClass();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private questionService: QuestionService,
+    private navCtrl: NavController,
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -18,9 +28,10 @@ export class AddQuizzComponent implements OnInit {
 
   initForm() {
     this.quizzForm = this.formBuilder.group({
+      userId: this.authService.currentAuthenticationValue.id,
       question: ['', [Validators.required]],
       resource: [''],
-      tags: [''],
+      tags: ['', [Validators.required]],
       answers: this.formBuilder.array([
         this.formBuilder.group({
           answer: ['', [Validators.required, Validators.minLength(1)]],
@@ -68,8 +79,17 @@ export class AddQuizzComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.quizzForm.valid) {
-      console.log(this.quizzForm.value);
+    if (this.quizzForm.valid && this.isAnswersValid.length > 0) {
+      this.quizz.makeQuestion(this.quizzForm.value);
+      this.questionService
+        .createQuestion(this.quizz)
+        .subscribe(question => console.log(question.correctAnswers), error => console.error(error));
     }
+  }
+
+  get isAnswersValid(): [] {
+    return this.quizzForm.value.answers.filter(answer => {
+      return answer.isCorrectAnswer === true;
+    });
   }
 }
