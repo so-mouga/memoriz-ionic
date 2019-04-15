@@ -66,6 +66,14 @@
                 }
               ]
             },
+            "develop": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.develop.ts"
+                }
+              ]
+            },
             "ci": {
               "progress": false
             }
@@ -79,6 +87,9 @@
           "configurations": {
             "production": {
               "browserTarget": "app:build:production"
+            },
+            "develop": {
+              "browserTarget": "app:build:develop"
             },
             "ci": {
               "progress": false
