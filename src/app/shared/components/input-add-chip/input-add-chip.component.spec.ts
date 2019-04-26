@@ -1,21 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputAddTagComponent } from './input-add-tag.component';
+import { InputAddChipComponent } from './input-add-chip.component';
 
-describe('InputAddTagComponent', () => {
-  let component: InputAddTagComponent;
-  let fixture: ComponentFixture<InputAddTagComponent>;
+describe('InputAddChipComponent', () => {
+  let component: InputAddChipComponent;
+  let fixture: ComponentFixture<InputAddChipComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [InputAddTagComponent],
+      declarations: [InputAddChipComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputAddTagComponent);
+    fixture = TestBed.createComponent(InputAddChipComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

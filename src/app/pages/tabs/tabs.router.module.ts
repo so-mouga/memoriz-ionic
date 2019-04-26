@@ -29,11 +29,11 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'question',
+        path: 'game',
         children: [
           {
             path: '',
-            loadChildren: '@app/pages/question/question.module#QuestionPageModule',
+            loadChildren: '@app/pages/game/game.module#GamePageModule',
             canActivate: [AuthGuardService],
           },
         ],

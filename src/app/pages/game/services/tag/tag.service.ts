@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { TagGet } from '@app/pages/question/models/tagGet';
+import { TagGet } from '@app/pages/game/models/tagGet';
 
 @Injectable({
   providedIn: 'root',

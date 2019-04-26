@@ -3,11 +3,11 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
 
 @Component({
-  selector: 'app-input-add-tag',
-  templateUrl: './input-add-tag.component.html',
-  styleUrls: ['./input-add-tag.component.scss'],
+  selector: 'app-input-add-chip',
+  templateUrl: './input-add-chip.component.html',
+  styleUrls: ['./input-add-chip.component.scss'],
 })
-export class InputAddTagComponent implements OnInit {
+export class InputAddChipComponent implements OnInit {
   @Output() sendTags = new EventEmitter();
   regexValidation = /[~`!@#$%^&()_={}[\]:;,.<>+\/?-]/;
   errorMessage = '';

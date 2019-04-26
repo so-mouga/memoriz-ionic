@@ -1,13 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { InputAddChipComponent } from '@app/shared/components/input-add-chip/input-add-chip.component';
 
-import { IonicModule } from '@ionic/angular';
-
-import { QuestionPage } from './question.page';
-import { QuestionRoutingModule } from '@app/pages/question/question.router.module';
-import { AddQuizzComponent } from '@app/pages/question/components/add-quizz/add-quizz.component';
-import { InputAddTagComponent } from '@app/pages/question/components/input-add-tag/input-add-tag.component';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -53,15 +49,28 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { IonicModule } from '@ionic/angular';
 
+/**
+ * Shared Module
+ * ---
+ * Module's exports which are usually declarables (components/directives/pipes)
+ * and providers that other modules may want to use.
+ * NOTE: SharedModule does not use CommonModule, even so, we import/export it
+ * because most other modules will import SharedModule and will need them.
+ */
 @NgModule({
   imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule,
+    // Materiel angular
     MatSelectModule,
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
     IonicModule,
-    QuestionRoutingModule,
     MatChipsModule,
     A11yModule,
     CdkStepperModule,
@@ -106,6 +115,16 @@ import { CdkTreeModule } from '@angular/cdk/tree';
     PortalModule,
     ScrollingModule,
   ],
-  declarations: [InputAddTagComponent, AddQuizzComponent, QuestionPage],
+  exports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    // Components
+    InputAddChipComponent,
+  ],
+  declarations: [
+    // Components
+    InputAddChipComponent,
+  ],
 })
-export class QuestionPageModule {}
+export class SharedModule {}

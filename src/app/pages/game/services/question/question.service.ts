@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { QuestionAdd } from '@app/pages/question/models/questionAdd';
+import { QuestionAdd } from '@app/pages/game/models/questionAdd';
 import { User } from '@app/core/model/user';
 import { Observable } from 'rxjs';
-import { QuestionGet } from '@app/pages/question/models/questionGet';
+import { QuestionGet } from '@app/pages/game/models/questionGet';
 
 @Injectable({
   providedIn: 'root',

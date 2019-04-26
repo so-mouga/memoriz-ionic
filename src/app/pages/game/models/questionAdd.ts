@@ -1,4 +1,4 @@
-import { TagAdd } from '@app/pages/question/models/tagAdd';
+import { TagAdd } from '@app/pages/game/models/tagAdd';
 
 export interface QuestionAdd {
   userId: string;

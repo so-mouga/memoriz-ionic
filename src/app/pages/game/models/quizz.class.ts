@@ -1,6 +1,6 @@
-import { QuestionAdd } from '@app/pages/question/models/questionAdd';
-import { TagAdd } from '@app/pages/question/models/tagAdd';
-import { QuizzAddForm } from '@app/pages/question/models/quizzAddForm';
+import { QuestionAdd } from '@app/pages/game/models/questionAdd';
+import { TagAdd } from '@app/pages/game/models/tagAdd';
+import { QuizzAddForm } from '@app/pages/game/models/quizzAddForm';
 
 export class QuizzClass implements QuestionAdd {
   public correctAnswers: string[] = [];
