@@ -1,3 +1,13 @@
+<ion-header *ngIf="isModal">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start" (click)="OnCloseModal()">
+      <ion-button>
+        <ion-icon slot="icon-only" name="md-close" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <ion-grid>
     <h1 text-center>Créer une question</h1>

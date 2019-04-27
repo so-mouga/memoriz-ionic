@@ -50,6 +50,7 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { IonicModule } from '@ionic/angular';
+import { UploadMediaComponent } from '@app/shared/components/upload-media/upload-media.component';
 
 /**
  * Shared Module
@@ -121,10 +122,12 @@ import { IonicModule } from '@ionic/angular';
     FormsModule,
     // Components
     InputAddChipComponent,
+    UploadMediaComponent,
   ],
   declarations: [
     // Components
     InputAddChipComponent,
+    UploadMediaComponent,
   ],
 })
 export class SharedModule {}

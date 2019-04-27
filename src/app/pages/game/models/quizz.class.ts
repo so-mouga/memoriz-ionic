@@ -1,6 +1,7 @@
 import { QuestionAdd } from '@app/pages/game/models/questionAdd';
 import { TagAdd } from '@app/pages/game/models/tagAdd';
 import { QuizzAddForm } from '@app/pages/game/models/quizzAddForm';
+import { QuestionGet } from '@app/pages/game/models/questionGet';
 
 export class QuizzClass implements QuestionAdd {
   public correctAnswers: string[] = [];
@@ -13,7 +14,10 @@ export class QuizzClass implements QuestionAdd {
   public tags: TagAdd[];
   public userId: string;
 
-  constructor() {}
+  constructor() {
+    this.correctAnswers = [];
+    this.incorrectAnswers = [];
+  }
 
   makeQuestion(quizz: QuizzAddForm) {
     this.userId = quizz.userId;
@@ -30,5 +34,9 @@ export class QuizzClass implements QuestionAdd {
       }
       this.incorrectAnswers.push(answer.answer);
     });
+  }
+
+  makeQuizz(quizz: QuestionGet) {
+    Object.assign(this, quizz);
   }
 }
