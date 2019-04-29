@@ -66,3 +66,17 @@ $customColors: ('primary-application', 'youtube', 'success-shade', 'primary-shad
   color: #d40101;
   font-size: 0.9em;
 }
+
+.bloc-input-message-error {
+  display: flex;
+  align-items: baseline;
+  p {
+    margin-bottom: 10px;
+  }
+  p:nth-child(2) {
+    margin-left: 5px;
+    font-size: 0.7em;
+    padding: 0;
+    color: red;
+  }
+}

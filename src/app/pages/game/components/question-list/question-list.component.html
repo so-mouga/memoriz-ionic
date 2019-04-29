@@ -1,0 +1,12 @@
+<ion-list>
+  <ion-item *ngFor="let question of questions">
+    <ion-thumbnail slot="start">
+      <img src="assets/img/icon-riz.jpg" />
+    </ion-thumbnail>
+    <ion-label>
+      type de jeux: {{ question.gameType }} <br />
+      {{ question.question }}
+    </ion-label>
+    <ion-icon (click)="onDisplayMore()" name="more"></ion-icon>
+  </ion-item>
+</ion-list>
