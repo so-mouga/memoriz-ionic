@@ -1,3 +1,5 @@
+import { UserAuth } from '@app/core/model/userAuth';
+
 export interface QuestionGet {
   correctAnswers: string[];
   createdAt: Date;
@@ -9,15 +11,10 @@ export interface QuestionGet {
   resource: string;
   resourceMedia: string;
   tags: TagQuestionGet[];
-  user: UserQuestionGet;
+  user: UserAuth;
 }
 
 interface TagQuestionGet {
   id: number;
   name: string;
-}
-
-interface UserQuestionGet {
-  id: number;
-  userName: string;
 }

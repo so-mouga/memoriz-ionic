@@ -15,5 +15,6 @@ export class QuestionListComponent implements OnInit {
 
   onDisplayMore() {
     console.log('display');
+    // todo show modal with question clicked
   }
 }

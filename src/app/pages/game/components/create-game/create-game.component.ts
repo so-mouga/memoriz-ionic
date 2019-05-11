@@ -3,6 +3,10 @@ import { ModalController } from '@ionic/angular';
 import { CreateQuestionComponent } from '@app/pages/game/components/create-question/create-question.component';
 import { QuizzClass } from '@app/pages/game/models/quizz.class';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GameService } from '@app/pages/game/services/game/game.service';
+import { AuthService } from '@app/core/services/auth/auth.service';
+import { GameAddForm } from '@app/pages/game/models/gameAddForm';
+import { GameAdd } from '@app/pages/game/models/gameAdd';
 
 @Component({
   selector: 'app-create-game',
@@ -17,6 +21,8 @@ export class CreateGameComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
+    private gameService: GameService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +31,7 @@ export class CreateGameComponent implements OnInit {
 
   initForm() {
     this.gameForm = this.formBuilder.group({
+      userId: this.authService.currentAuthenticationValue.id,
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       isPrivate: [false],
@@ -67,6 +74,22 @@ export class CreateGameComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.gameForm.value);
+    this.gameService
+      .createGame(this.sanitizeGame(this.gameForm.value))
+      .subscribe(data => console.log(data), error => console.error(error));
+  }
+
+  private sanitizeGame(game: GameAddForm): GameAdd {
+    const questionIds = game.questions.map(x => {
+      return x.id;
+    });
+
+    return {
+      userId: game.userId,
+      name: game.name,
+      description: game.description,
+      isPrivate: game.isPrivate,
+      questions: questionIds,
+    };
   }
 }

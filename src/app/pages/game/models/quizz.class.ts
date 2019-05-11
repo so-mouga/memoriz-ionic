@@ -13,6 +13,7 @@ export class QuizzClass implements QuestionAdd {
   public resourceMedia: string;
   public tags: TagAdd[];
   public userId: string;
+  public id: number;
 
   constructor() {
     this.correctAnswers = [];
