@@ -1,5 +1,5 @@
 export interface UserInterface {
-  id: string;
+  id: number;
   email: string;
   dateOfBirth?: Date;
   userName: string;
@@ -16,7 +16,7 @@ export class User implements UserInterface {
   static AGE_MIN_REQUIRED = 13;
   static REGEX_PASSWORD = /[0-9a-zA-Z]{6,}/;
 
-  private _id: string;
+  private _id: number;
   private _createdAt: Date;
   private _updatedAt: Date;
   private _userName: string;
@@ -35,11 +35,11 @@ export class User implements UserInterface {
     Object.assign(this, user);
   }
 
-  get id(): string {
+  get id(): number {
     return this._id;
   }
 
-  set id(value: string) {
+  set id(value: number) {
     this._id = value;
   }
 

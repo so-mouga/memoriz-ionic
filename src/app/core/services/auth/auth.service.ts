@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserInterface } from '@app/core/model/user';
 import { UserService } from '@app/core/services/user/user.service';
+import { UserAuth } from '@app/core/model/userAuth';
 
 const domainServer = environment.domain_server;
 export const TOKEN_KEY = 'access_token';
@@ -26,7 +27,7 @@ export class AuthService {
     this.checkToken();
   }
 
-  get currentAuthenticationValue(): UserInterface {
+  get currentAuthenticationValue(): UserAuth {
     return this.authenticationState.value;
   }
 

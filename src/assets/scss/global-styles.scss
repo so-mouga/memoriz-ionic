@@ -5,7 +5,7 @@ $colorPrimaryApplication: #8268fd;
   --ion-color-primary-application: #8268fd;
   --ion-color-youtube: #ff0000;
 }
-$customColors: ('primary-application', 'youtube');
+$customColors: ('primary-application', 'youtube', 'success-shade', 'primary-shade');
 @each $color in $customColors {
   .ion-color-#{$color} {
     --ion-color-base: var(--ion-color-#{$color}) !important;
@@ -65,4 +65,18 @@ $customColors: ('primary-application', 'youtube');
   margin: 0;
   color: #d40101;
   font-size: 0.9em;
+}
+
+.bloc-input-message-error {
+  display: flex;
+  align-items: baseline;
+  p {
+    margin-bottom: 10px;
+  }
+  p:nth-child(2) {
+    margin-left: 5px;
+    font-size: 0.7em;
+    padding: 0;
+    color: red;
+  }
 }

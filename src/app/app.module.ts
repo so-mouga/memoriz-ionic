@@ -18,6 +18,7 @@ import { ErrorInterceptor } from '@app/core/interceptors/error.interceptor';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { SharedModule } from '@app/shared/shared.module';
 
 const domainServer = environment.domain_server;
 const domainServerUrn = domainServer.replace(/^http(s?):\/\//i, '');
@@ -36,6 +37,7 @@ export function jwtOptionsFactory(storage) {
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    SharedModule,
     BrowserModule,
     ReactiveFormsModule,
     IonicModule.forRoot(),

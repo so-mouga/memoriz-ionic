@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="md-close" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-button [disabled]="gameForm.invalid" (click)="onSubmit()" slot="secondary" color="success-shade">
+      <ion-label color="light">c'est partie</ion-label>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
+    <ion-row justify-content-center>
+      <ion-col size-md="7" size-xs="11">
+        <h1 text-center>Créer une partie</h1>
+
+        <ion-row justify-content-center>
+          <ion-col>
+            <div class="bloc-input-message-error">
+              <p>Nom de la salle</p>
+              <p *ngIf="formControls.name.invalid && (formControls.name.dirty || formControls.name.touched)">
+                ce champs est requis
+              </p>
+            </div>
+            <ion-input padding formControlName="name" class="input-field-text" type="string"></ion-input>
+          </ion-col>
+        </ion-row>
+
+        <ion-row justify-content-center>
+          <ion-col>
+            <div class="bloc-input-message-error">
+              <p>Description</p>
+              <p
+                *ngIf="
+                  formControls.description.invalid &&
+                  (formControls.description.dirty || formControls.description.touched)
+                "
+              >
+                ce champs est requis
+              </p>
+            </div>
+            <ion-textarea formControlName="description" class="input-area-field" rows="3" cols="20"></ion-textarea>
+          </ion-col>
+        </ion-row>
+
+        <ion-row justify-content-center>
+          <ion-col>
+            <app-upload-media [title]="'Image de couverture'"></app-upload-media>
+          </ion-col>
+        </ion-row>
+
+        <ion-row justify-content-center>
+          <ion-col>
+            <ion-row>
+              <label>Partie privée ?</label>
+            </ion-row>
+            <ion-row>
+              <ion-col class="center-bloc-column" size-xs="1">
+                <ion-checkbox formControlName="isPrivate" (click)="onSetIsPublic()" color="primary"></ion-checkbox>
+              </ion-col>
+              <ion-col size-xs="11">
+                <ion-input formControlName="password" class="input-field-text" type="string"></ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <div class="bloc-input-message-error">
+            <p>Question</p>
+            <p
+              *ngIf="formControls.questions.invalid && (formControls.questions.dirty || formControls.questions.touched)"
+            >
+              ce champs est requis
+            </p>
+          </div>
+        </ion-row>
+        <app-question-list [questions]="questions"></app-question-list>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end">
+  <ion-button class="button-style" color="primary-shade" shape="round" style="height: 55px; font-size: 0.8em">
+    <ion-icon size="large" slot="start" name="add"></ion-icon>
+    Ajoutez <br />
+    une <br />
+    question
+  </ion-button>
+  <ion-fab-list side="top" style="right: 0px;">
+    <ion-fab-button>
+      <ion-icon name="close">close</ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="presentModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="md-search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
