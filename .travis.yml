@@ -3,17 +3,36 @@ sudo: false
 
 language: node_js
 node_js:
-  - '9'
+  - "11.0"
 
 cache:
   directories:
     - ./node_modules
 
-install:
+before_script:
+  - npm install -g @angular/cli
+script:
   - npm install
 
-script:
-  - make app-cs-check
+jobs:
+  include:
+    - stage: test
+      name: "Test application"
+      script:
+        - make app-cs-check
+    - stage: deploy-develop
+      if: branch = develop
+      name: "Deploy to develop HEROKU"
+      skip_cleanup: true
+      env:
+        - ENV_DEPLOY=develop
+      deploy:
+        provider: heroku
+        api_key:
+          secure: "zMHWgABRTw24ulFpUTo/dVaBn2QLErTxqXN4+rEUo05EQsoyrUz/y8q/iEjQySeeNvWDkxaALHaw1qOPsYBz7Gj0yNmO4dIkWYRRcR8uRpQVgNxENchNMpuJnFlhj38U4Gl+tHVG3h/1pUuMLxO40hwqOA1WRJxF2V1I7RYx8nAYMHt0+AOLp2Iwh6ADBZ8YXBDJ0Ob3ESBveUHm14EY92bhQNmqP9smlFd/VjlRANOcn/RM1CCbJoeDcXdOw404ujPXMfazFhsWSyff7N2uGKf4KzkshEHRvmoOUjwll0OSpy5joDWZQYiSXsdECx0flv6ZO0M+CdzPX4YqqbOw81w3+9ef+yG7qrpNch0IAv8yV91ELYDUU890eR+M/EXD/6JneFbupKAUPc7NDWy8i/P3fyNXUdTU/fYxTm/jVfgPKX75F+fXXQZWOjnpOD7Oinzk3S8zGbV+H5xo3Behu0iGSVUTprHdqdJaov28yPmJOHcD/fzsHTpJ14JIXGDlqSSBbSgruQwWsa23ATdphEZNcoxuXYMR/0sJkwHGsaFDMj77o7WZTlCjHaAu4r+l0fcx21ofZ647TlxCDAcIcah7dIzAUmVJuhxqGTbjPEjM/iUE32FhScaBI4wq0T8dYN/SDplpdIln/7Kle3d0Y8tFdFgN3M/wuMIm4xx+zKQ="
+        app: memo-riz-client-develop
+        on:
+          branch: develop
 
 notifications:
   slack:

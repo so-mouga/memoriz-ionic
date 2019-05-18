@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  environment: 'local',
   production: false,
   domain_server: 'http://localhost:3000',
   application_name: 'memo-riz',
