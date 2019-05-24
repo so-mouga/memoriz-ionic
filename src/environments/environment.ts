@@ -6,7 +6,7 @@ export const environment = {
   environment: 'local',
   production: false,
   domain_server: 'http://localhost:3000',
-  application_name: 'memo-riz',
+  application_name: 'Memo-riz',
   status_code_server_down: 0, // todo change the status code
 };
 

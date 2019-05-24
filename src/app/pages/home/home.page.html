@@ -1,0 +1,63 @@
+<ion-content>
+  <ion-row class="button" justify-content-center>
+    <ion-col align-self-center align-items-center size-md="7" size-lg="4" size-xs="11">
+      <ion-slides pager="true" [options]="slideOpts" #mySlider (ionSlidesDidLoad)="slidesDidLoad(mySlider)">
+        <ion-slide>
+          <ion-img src="assets/img/onigiri/onigiri-2.png"></ion-img>
+          <h2>Bienvenue sur {{ applicationName }}, quizz pédagogiques et fun pour tous !</h2>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="assets/img/onigiri/onigiri-7.png"></ion-img>
+          <h2>Créez vos propres quizz, partagez-les avec d'autres personnes !</h2>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="assets/img/onigiri/onigiri-4.png"></ion-img>
+          <h2>Choisissez un quizz qui vous intéresse et jouez en ligne !</h2>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="button" justify-content-center>
+    <ion-col align-self-center align-items-center size-md="7" size-lg="4" size-xs="11">
+      <ion-button
+        routerLink="/log-in"
+        routerDirection="forward"
+        class="button-style"
+        type="submit"
+        shape="round"
+        size="default"
+        expand="block"
+        color="dark"
+      >
+        Se connecter
+      </ion-button>
+
+      <p text-center>Pas encore de compte ?</p>
+      <ion-button
+        routerLink="/sign-up"
+        routerDirection="forward"
+        class="button-style"
+        type="submit"
+        shape="round"
+        size="default"
+        expand="block"
+        color="dark"
+      >
+        S'inscrire
+      </ion-button>
+      <div class="separator"></div>
+      <ion-button
+        routerDirection="forward"
+        class="button-style"
+        type="submit"
+        size="default"
+        shape="round"
+        expand="block"
+        color="secondary-shade"
+      >
+        Rejoindre une partie
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
