@@ -11,8 +11,13 @@ cache:
 
 before_script:
   - npm install -g @angular/cli
+
 script:
   - npm install
+
+stages:
+  - test
+  - deploy-develop
 
 jobs:
   include:
@@ -20,6 +25,7 @@ jobs:
       name: "Test application"
       script:
         - make app-cs-check
+
     - stage: deploy-develop
       if: branch = develop
       name: "Deploy to develop HEROKU"
@@ -29,7 +35,7 @@ jobs:
       deploy:
         provider: heroku
         api_key:
-          secure: "zMHWgABRTw24ulFpUTo/dVaBn2QLErTxqXN4+rEUo05EQsoyrUz/y8q/iEjQySeeNvWDkxaALHaw1qOPsYBz7Gj0yNmO4dIkWYRRcR8uRpQVgNxENchNMpuJnFlhj38U4Gl+tHVG3h/1pUuMLxO40hwqOA1WRJxF2V1I7RYx8nAYMHt0+AOLp2Iwh6ADBZ8YXBDJ0Ob3ESBveUHm14EY92bhQNmqP9smlFd/VjlRANOcn/RM1CCbJoeDcXdOw404ujPXMfazFhsWSyff7N2uGKf4KzkshEHRvmoOUjwll0OSpy5joDWZQYiSXsdECx0flv6ZO0M+CdzPX4YqqbOw81w3+9ef+yG7qrpNch0IAv8yV91ELYDUU890eR+M/EXD/6JneFbupKAUPc7NDWy8i/P3fyNXUdTU/fYxTm/jVfgPKX75F+fXXQZWOjnpOD7Oinzk3S8zGbV+H5xo3Behu0iGSVUTprHdqdJaov28yPmJOHcD/fzsHTpJ14JIXGDlqSSBbSgruQwWsa23ATdphEZNcoxuXYMR/0sJkwHGsaFDMj77o7WZTlCjHaAu4r+l0fcx21ofZ647TlxCDAcIcah7dIzAUmVJuhxqGTbjPEjM/iUE32FhScaBI4wq0T8dYN/SDplpdIln/7Kle3d0Y8tFdFgN3M/wuMIm4xx+zKQ="
+          secure: "am/l3c1YSl/xjqIT71HlDElCaU9gU6qM4TGy0yP86iibTQcg1vIdDhmm7ddZf3XwMay68hC//NcfxQKqWy+PHyctXqUy9dZIHYG6ZjOAMb5mVZAwZksUOw45yhwvQJa1rTmXxazP3m97gXujQiAe4mMMA60dY9yXcoibt6FCQ2RX5fC8HmAClCUigs0QtP+miV+M/cb47i3NCyKYftsDN4a7/dqnAZ7nezIhNIOOdQytakbRS8tYPH5xdKpTecPCEqFxWGVRgAgjXNiydOGkE+5/PIDqthPm44SmLjriKOkiMFDOEPVD1GrTHdEK8gK/ITRlxWzMp6R/za4sfzAQdUXRrx3OUfux8dwGrRJF0N4sxv65IsttLlZz8uoMt9+cM5a9F9pzwiQp957X2JAiOEiDLVENHZQPUXihJ2opw/uK6OOY7XVNPvnoBaRV7IJKiJ8rpTnuAxrYqhWEGcq09Xhq8zgQa702HemN9sEuq15r+QdJDkBMtZqp2wVzmrqYZq55SP7vpypDqJf8bK3IbFQ2lRV0iutI9UAf8WINncmWf09c4Q4xCAb0aMdl0NnW0+Guku8dLx3vZN0NflJkTu0hv9wMqKwqs4qXA8nStH3ThC9yNkmVRu+C1grBIXp6QntyK8VCFWwOcFtG1Cc1hsMtEWPXtkXnAnBjklAtQ90="
         app: memo-riz-client-develop
         on:
           branch: develop
@@ -37,7 +43,10 @@ jobs:
 notifications:
   slack:
     rooms:
-      - ipssi-d19-1:3U0tNTwfovSqXR04sBm4G5HQ#memo-riz
-      - project-memoriz:eNwxdTjBPUILq82810LqAtle#general
+      - secure: "MLRZlkiI72wF+qYo1n8bBCS8tqiAkxZjf7A5hWX9J3yJK1AzF0nm4Zb0O8VPDhUHkpIs3Cr0AhCE6rl8ucaP4jlX15+0wxPtlnJXUHUjPYVlBeoiPfl0zjtPMNjufKveKlW2x8IH70LtFEOUgvKB7KpiGHOzQo/75mr9s/L6UD7HHgM5P0jm0/k6Td36TJDre2hiUUAlYAhprVXiAphgf8W72SRsjZs+cXVgpi8cMsWxvDKVVXjWlb/5zMY8C649QNeE9vF02kWQC59lAemCToMOmtXvGgN4A4ETApMz80Wp8TmRFbfTTkWvVMgzlaOIzGWLx2QQKDFC8KnF2uHm7+gVRMbDsQWUGhdW8eJi17bkrfv1WieAd2AaBYRWlSGshl+0Jza4v0UjuuBxCLD6EDKkFCXS3aGQQkb67iVR0EeFIizT2INS9+P02am3QFCgiHow9yM3DCuuvIJfBmE0q+nULtFsAOPv9ak2NLg56+yVoglDjUrzI3q9y+BEe9g4101wMzob2QoP5DMxKcJ5RmfqWADUPCE013/r7h/7JgqgdsOMVg45ghc42xPwDmKfRvBzxnAm6rq3pYtyqXq0FQvgae509Bl6atKMqt6Q33TvD6BIolrSQyob7XiQ9alQfvDfT8fpgTNBcA2V6+DjrARpOddNTayv0lFQCcYmPgI="    on_success: change
     on_success: change
     on_failure: always
+    template:
+      - "Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>) for commit (<%{compare_url}|%{commit}>) on branch `%{branch}`."
+      - "Execution time: *%{duration}*"
+      - "Message: %{message}"

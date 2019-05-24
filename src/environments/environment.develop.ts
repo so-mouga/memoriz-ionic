@@ -1,7 +1,7 @@
 export const environment = {
   environment: 'develop',
-  production: false,
-  domain_server: 'develop',
-  application_name: 'memo-riz',
+  production: true,
+  domain_server: 'https://memo-riz-back-dev.herokuapp.com',
+  application_name: 'Memo-riz',
   status_code_server_down: 0, // todo change the status code
 };
