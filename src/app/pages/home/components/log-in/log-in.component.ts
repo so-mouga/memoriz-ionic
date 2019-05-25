@@ -5,10 +5,10 @@ import { AuthService } from '@app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-log-in',
-  templateUrl: './log-in.page.html',
-  styleUrls: ['./log-in.page.scss'],
+  templateUrl: './log-in.component.html',
+  styleUrls: ['./log-in.component.scss'],
 })
-export class LogInPage implements OnInit {
+export class LogInComponent implements OnInit {
   logInForm: FormGroup;
   errorMessage: string;
 

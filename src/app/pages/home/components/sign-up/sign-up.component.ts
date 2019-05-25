@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '@app/core/model/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { UserService } from '@app/core/services/user/user.service';
 import { NavController } from '@ionic/angular';
@@ -8,13 +8,14 @@ import { AuthService } from '@app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-sign-up',
-  templateUrl: './sign-up.page.html',
-  styleUrls: ['./sign-up.page.scss'],
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss'],
 })
-export class SignUpPage implements OnInit {
+export class SignUpComponent implements OnInit {
   user: User;
+  profilesKey = Object.keys;
+  profilesLabel = User.PROFILES;
   signUpForm: FormGroup;
-  profilesType: Array<string> = User.getProfilesType();
   errorMessage: string;
   dateMinRequired = moment()
     .subtract(User.AGE_MIN_REQUIRED, 'years')
@@ -47,11 +48,13 @@ export class SignUpPage implements OnInit {
   }
 
   onSubmit() {
-    const { privacyPolicy } = this.signUpForm.value;
+    const { privacyPolicy, email, password } = this.signUpForm.value;
     if (privacyPolicy) {
       this.userService.createUser(this.signUpForm.value).subscribe(
         user => {
-          // todo implement auth after create account
+          this.authService
+            .logInUser(email, password)
+            .subscribe(auth => this.navCtrl.navigateForward(['/home', 'board']));
         },
         error => {
           this.errorMessage = error.error;

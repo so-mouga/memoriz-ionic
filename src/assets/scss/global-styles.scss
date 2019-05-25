@@ -3,9 +3,17 @@ $colorPrimaryApplication: #cbe8f2;
 // color global for application
 :root {
   --ion-color-primary-application: #cbe8f2;
+  --ion-color-secondary-application: #6eb9f5;
   --ion-color-youtube: #ff0000;
 }
-$customColors: ('primary-application', 'youtube', 'success-shade', 'primary-shade', 'secondary-shade');
+$customColors: (
+  'primary-application',
+  'secondary-application',
+  'youtube',
+  'success-shade',
+  'primary-shade',
+  'secondary-shade'
+);
 @each $color in $customColors {
   .ion-color-#{$color} {
     --ion-color-base: var(--ion-color-#{$color}) !important;

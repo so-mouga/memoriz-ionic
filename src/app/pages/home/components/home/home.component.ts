@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
 import { environment } from '@environments/environment';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
-export class HomePage implements OnInit {
+export class HomeComponent implements OnInit {
   applicationName = environment.application_name;
   slideOpts = {
     speed: 900,

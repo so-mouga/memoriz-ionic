@@ -1,0 +1,77 @@
+<app-header></app-header>
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="7" size-lg="4" size-xs="11">
+        <h2 margin text-center="center">Se connecter</h2>
+        <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+          <ion-row>
+            <ion-input
+              autocomplete="on"
+              padding
+              margin-bottom="10px"
+              class="input-field-text"
+              type="email"
+              formControlName="email"
+              placeholder="Adresse email"
+            ></ion-input>
+          </ion-row>
+          <ion-row>
+            <ion-input
+              autocomplete="on"
+              padding
+              class="input-field-text"
+              type="password"
+              formControlName="password"
+              placeholder="Mot de passe"
+            ></ion-input>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-text color="danger">
+              <p>{{ errorMessage }}</p>
+            </ion-text>
+          </ion-row>
+          <ion-row>
+            <ion-button
+              [disabled]="logInForm.invalid"
+              class="button-style"
+              type="submit"
+              shape="round"
+              size="default"
+              expand="block"
+              color="secondary-application"
+            >
+              Se connecter
+            </ion-button>
+          </ion-row>
+        </form>
+
+        <ion-row justify-content-center>
+          <a margin class="text-color-primary" text-center>
+            Mot de passe oublié ?
+          </a>
+        </ion-row>
+
+        <div class="separator"></div>
+
+        <ion-row justify-content-center>
+          <p class="text-creat-account">Vous n'avez pas de compte ?</p>
+        </ion-row>
+        <ion-row>
+          <ion-button
+            routerLink="/sign-up"
+            routerDirection="forward"
+            class="button-style"
+            type="submit"
+            shape="round"
+            size="default"
+            expand="block"
+            color="dark"
+          >
+            Créer un compte
+          </ion-button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
