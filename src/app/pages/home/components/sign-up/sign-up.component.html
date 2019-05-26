@@ -1,0 +1,82 @@
+<app-header></app-header>
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="7" size-lg="4" size-xs="11">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+          <h2 margin text-center="center">Créer un compte</h2>
+          <ion-text color="danger">
+            <p text-center>{{ errorMessage }}</p>
+          </ion-text>
+          <ion-item>
+            <ion-label>Je suis</ion-label>
+            <ion-select formControlName="profileType" interface="popover">
+              <ion-select-option *ngFor="let profile of profilesKey(profilesLabel)" value="{{ profile }}">{{
+                profilesLabel[profile]
+              }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-input
+            autocomplete="on"
+            padding
+            max="{{ dateMinRequired | date: 'yyyy-MM-dd' }}"
+            class="input-field-text"
+            type="date"
+            formControlName="dateOfBirth"
+            placeholder="Date de naissance"
+          >
+          </ion-input>
+          <ion-input
+            autocomplete="on"
+            padding
+            class="input-field-text"
+            type="string"
+            formControlName="userName"
+            placeholder="Choisie ton pseudo"
+          >
+          </ion-input>
+          <ion-input
+            autocomplete="on"
+            padding
+            class="input-field-text"
+            type="email"
+            formControlName="email"
+            placeholder="Adresse email"
+          >
+          </ion-input>
+          <ion-input
+            padding
+            class="input-field-text"
+            type="password"
+            formControlName="password"
+            placeholder="Mot de passe"
+          >
+          </ion-input>
+          <div class="bloc-terms">
+            <ion-checkbox checked="false" formControlName="privacyPolicy"></ion-checkbox>
+            <p>
+              J'ai lu et j'accepte les termes et conditions.
+            </p>
+          </div>
+          <ion-button
+            [disabled]="signUpForm.invalid"
+            class="button-style"
+            type="submit"
+            shape="round"
+            size="default"
+            expand="block"
+            color="secondary-application"
+          >
+            S'inscrire
+          </ion-button>
+        </form>
+        <ion-row justify-content-center>
+          <p>
+            Vous avez déjà un compte ?
+            <a routerLink="/log-in" routerDirection="forward" class="text-color-primary">Connexion</a>
+          </p>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

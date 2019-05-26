@@ -16,6 +16,12 @@ export class User implements UserInterface {
   static AGE_MIN_REQUIRED = 13;
   static REGEX_PASSWORD = /[0-9a-zA-Z]{6,}/;
 
+  static PROFILES = {
+    [User.PROFILE_TYPE_TEACHER]: 'Enseignant',
+    [User.PROFILE_TYPE_STUDENT]: 'Étudiant',
+    [User.PROFILE_TYPE_OTHER]: 'Autre',
+  };
+
   private _id: number;
   private _createdAt: Date;
   private _updatedAt: Date;
@@ -24,10 +30,6 @@ export class User implements UserInterface {
   private _email: string;
   private _password: string;
   private _profileType: string;
-
-  static getProfilesType(): Array<string> {
-    return [this.PROFILE_TYPE_TEACHER, this.PROFILE_TYPE_STUDENT, this.PROFILE_TYPE_OTHER];
-  }
 
   constructor() {}
 
