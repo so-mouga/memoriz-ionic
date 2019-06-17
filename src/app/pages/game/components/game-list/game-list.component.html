@@ -1,0 +1,28 @@
+<ion-grid>
+  <ion-row justify-content-center>
+    <ion-col align-self-center size-lg="4" size-md="6" size-xs="12">
+      <ion-row align-items-center>
+        <ion-card *ngFor="let game of games">
+          <ion-item>
+            <ion-label>{{ game.name }}</ion-label>
+            <ion-button
+              routerLink="/room/create"
+              [queryParams]="{ gameId: game.id }"
+              routerDirection="forward"
+              slot="end"
+              color="success"
+              >jouer</ion-button
+            >
+          </ion-item>
+          <img alt="picture-game" src="{{ game.cover }}" />
+          <ion-card-content>
+            <p>{{ game.description }}</p>
+          </ion-card-content>
+          <ion-row>
+            <p>{{ game.questions.length }} questions</p>
+          </ion-row>
+        </ion-card>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-grid>

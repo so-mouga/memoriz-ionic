@@ -14,7 +14,7 @@ export class LogInComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private navCtrl: NavController, private authService: AuthService) {
     if (this.authService.currentAuthenticationValue) {
-      this.navCtrl.navigateForward(['/home', 'board']);
+      this.navCtrl.navigateForward(['/home', 'game']);
     }
   }
 
@@ -35,7 +35,7 @@ export class LogInComponent implements OnInit {
       this.authService
         .logInUser(email, password)
         .subscribe(
-          data => this.navCtrl.navigateForward(['/home', 'board']),
+          data => this.navCtrl.navigateForward(['/home', 'game']),
           e => (this.errorMessage = 'Votre email ou mot de passe est incorrect.'),
         );
     }

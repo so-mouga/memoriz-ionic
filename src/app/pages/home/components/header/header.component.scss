@@ -2,3 +2,9 @@ ion-header::after {
   background-image: none;
   border-bottom: 1px solid #d9dadc;
 }
+
+ion-toolbar {
+  p {
+    margin: 0;
+  }
+}

@@ -28,7 +28,7 @@ export class SignUpComponent implements OnInit {
     private authService: AuthService,
   ) {
     if (this.authService.currentAuthenticationValue) {
-      this.navCtrl.navigateForward(['/home', 'board']);
+      this.navCtrl.navigateForward(['/home', 'game']);
     }
   }
 
@@ -54,7 +54,7 @@ export class SignUpComponent implements OnInit {
         user => {
           this.authService
             .logInUser(email, password)
-            .subscribe(auth => this.navCtrl.navigateForward(['/home', 'board']));
+            .subscribe(auth => this.navCtrl.navigateForward(['/home', 'game']));
         },
         error => {
           this.errorMessage = error.error;

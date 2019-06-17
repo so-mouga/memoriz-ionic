@@ -9,16 +9,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'board',
-        children: [
-          {
-            path: '',
-            loadChildren: '@app/pages/dashboard/dashboard.module#DashboardPageModule',
-            canActivate: [AuthGuardService],
-          },
-        ],
-      },
-      {
         path: 'user',
         children: [
           {
@@ -40,14 +30,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/home/board',
+        redirectTo: '/home/game',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/home/board',
+    redirectTo: '/home/game',
     pathMatch: 'full',
   },
 ];
