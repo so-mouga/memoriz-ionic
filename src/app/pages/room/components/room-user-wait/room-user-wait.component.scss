@@ -1,0 +1,24 @@
+ion-header {
+  ion-toolbar {
+    p {
+      font-size: 1.4em;
+      font-weight: 600;
+      span {
+        font-size: 1.8em;
+        font-weight: 900;
+      }
+    }
+  }
+}
+
+ion-grid {
+  p {
+    font-size: 1.6em;
+    line-height: 28px;
+    font-weight: 700;
+    color: #fff;
+  }
+  ion-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,12 @@
+ion-grid {
+  height: 100%;
+  ion-row:first-child {
+    height: 100%;
+    flex-direction: column;
+  }
+}
+form {
+  * {
+    width: 100%;
+  }
+}

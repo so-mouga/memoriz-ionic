@@ -1,0 +1,20 @@
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center align-items-center>
+      <img src="assets/img/onigiri/onigiri-2.png" width="225px" />
+      <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+        <ion-input
+          placeholder="code de la salle"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          formControlName="roomId"
+          class="input-field-text"
+        ></ion-input>
+        <ion-button type="submit" [disabled]="roomForm.invalid" color="secondary-application"> entrer </ion-button>
+      </form>
+      <ion-text color="danger">
+        <p>{{ error }}</p>
+      </ion-text>
+    </ion-row>
+  </ion-grid>
+</ion-content>

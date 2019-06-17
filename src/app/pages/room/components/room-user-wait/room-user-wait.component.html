@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <p *ngIf="!errorMessage" text-center>
+      Partage le CODE à tes amies : <span>{{ roomId }}</span>
+    </p>
+    <p *ngIf="errorMessage" text-center>{{ errorMessage }}</p>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="background-color-animation">
+    <ion-row *ngIf="!errorMessage" justify-content-center>
+      <ion-col align-self-center size-md="9" size-xs="11">
+        <ion-row align-items-center>
+          <ion-col size-xs="9">
+            <p>nombre de joueur : {{ players.length }}</p>
+          </ion-col>
+          <ion-col size-xs="3">
+            <ion-button class="button-style" color="dark">
+              <ion-label color="light">GO</ion-label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row margin-horizontal>
+          <ion-col text-center size-md="3" size-xs="4" *ngFor="let player of players">
+            <app-player-display [player]="player"></app-player-display>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar *ngIf="!errorMessage" color="secondary-application">
+    <div class="center-bloc-align" padding-horizontal>
+      <ion-icon color="light" size="large" name="md-information-circle"></ion-icon>
+      <ion-title color="light">En attente de joueurs ...</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-footer>
