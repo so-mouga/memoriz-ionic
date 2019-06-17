@@ -1,0 +1,14 @@
+ion-grid {
+  height: 100%;
+  ion-row:first-child {
+    height: 100%;
+    flex-direction: column;
+  }
+}
+
+p {
+  font-size: 1.6em;
+  line-height: 28px;
+  font-weight: 700;
+  color: #fff;
+}

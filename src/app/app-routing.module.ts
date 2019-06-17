@@ -7,6 +7,7 @@ const routes: Routes = [
     path: 'home',
     loadChildren: '@app/pages/tabs/tabs.module#TabsPageModule',
   },
+  { path: 'room', loadChildren: './pages/room/room.module#RoomPageModule' },
   {
     path: '**',
     redirectTo: '/',
