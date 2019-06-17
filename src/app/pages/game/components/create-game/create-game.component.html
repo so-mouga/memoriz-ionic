@@ -1,12 +1,7 @@
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-buttons slot="start">
-      <ion-button>
-        <ion-icon slot="icon-only" name="md-close" color="light"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-button [disabled]="gameForm.invalid" (click)="onSubmit()" slot="secondary" color="success-shade">
-      <ion-label color="light">c'est partie</ion-label>
+      <ion-label color="light">créer</ion-label>
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -20,7 +15,7 @@
         <ion-row justify-content-center>
           <ion-col>
             <div class="bloc-input-message-error">
-              <p>Nom de la salle</p>
+              <p>Nom</p>
               <p *ngIf="formControls.name.invalid && (formControls.name.dirty || formControls.name.touched)">
                 ce champs est requis
               </p>

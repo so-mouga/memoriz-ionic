@@ -7,6 +7,7 @@ export interface GameGet {
   updatedAt: Date;
   id: number;
   description: string;
+  name: string;
   isPrivate: boolean;
   questions: QuestionGet[];
   user: UserAuth;
