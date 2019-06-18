@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { CreateQuestionComponent } from '@app/pages/game/components/create-question/create-question.component';
 import { QuizzClass } from '@app/pages/game/models/quizz.class';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -23,6 +23,7 @@ export class CreateGameComponent implements OnInit {
     private formBuilder: FormBuilder,
     private gameService: GameService,
     private authService: AuthService,
+    private navCtrl: NavController,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +77,7 @@ export class CreateGameComponent implements OnInit {
   onSubmit() {
     this.gameService
       .createGame(this.sanitizeGame(this.gameForm.value))
-      .subscribe(data => console.log(data), error => console.error(error));
+      .subscribe(data => this.navCtrl.navigateForward(['/home', 'game']), error => console.error(error));
   }
 
   private sanitizeGame(game: GameAddForm): GameAdd {

@@ -2,7 +2,7 @@ export interface UserInterface {
   id: number;
   email: string;
   dateOfBirth?: Date;
-  userName: string;
+  username: string;
   password: string;
   profileType: string;
   createdAt: Date;
@@ -25,7 +25,7 @@ export class User implements UserInterface {
   private _id: number;
   private _createdAt: Date;
   private _updatedAt: Date;
-  private _userName: string;
+  private _username: string;
   private _dateOfBirth?: Date;
   private _email: string;
   private _password: string;
@@ -45,12 +45,12 @@ export class User implements UserInterface {
     this._id = value;
   }
 
-  get userName(): string {
-    return this._userName;
+  get username(): string {
+    return this._username;
   }
 
-  set userName(value: string) {
-    this._userName = value;
+  set username(value: string) {
+    this._username = value;
   }
 
   get dateOfBirth(): Date {

@@ -21,7 +21,7 @@ export class PlayerDisplayComponent implements OnInit {
 
   showAlertDelete() {
     return this.alertCtrl.create({
-      message: `Supprimer le joueur ${this.player.userName} de la salle ?`,
+      message: `Supprimer le joueur ${this.player.username} de la salle ?`,
       buttons: [
         {
           text: 'Annuler',

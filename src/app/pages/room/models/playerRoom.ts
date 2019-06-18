@@ -1,6 +1,6 @@
 export interface PlayerRoom {
   id: number;
-  userName: string;
+  username: string;
   socketId: number;
   isAdmin: boolean;
 }
