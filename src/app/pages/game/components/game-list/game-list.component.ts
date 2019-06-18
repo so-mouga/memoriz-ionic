@@ -10,11 +10,13 @@ import { GameGet } from '@app/pages/game/models/gameGet';
 })
 export class GameListComponent implements OnInit, OnDestroy {
   gamesSubscription: Subscription;
+  getGameUserSubscription: Subscription;
   games: GameGet[] = [];
   pathNotImage = 'assets/img/image-not-found.png';
 
   constructor(private gameService: GameService) {
-    this.gamesSubscription = this.gameService.getGameUser().subscribe(games => {
+    this.gameService.getGameUser().subscribe();
+    this.gamesSubscription = this.gameService.gamesSubject.subscribe(games => {
       this.games = games.map(game => {
         if (!game.cover) {
           game.cover = this.pathNotImage;
@@ -28,5 +30,6 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.gamesSubscription.unsubscribe();
+    this.getGameUserSubscription.unsubscribe();
   }
 }
