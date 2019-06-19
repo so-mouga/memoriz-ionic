@@ -8,8 +8,11 @@ import { RoomCreated } from '@app/pages/room/models/roomCreated';
 import { StorageGameSessionUser } from '@app/pages/room/models/storageGameSessionUser';
 import { PlayerRoom } from '@app/pages/room/models/playerRoom';
 import { SocketResponse } from '@app/core/model/socketResponse';
+import { UserAuth } from '@app/core/model/userAuth';
+import { User } from '@app/core/model/user';
 
 export enum Action {
+  ROOM_FIND = 'room-find',
   ROOM_USER_CREATE = 'room-user-create',
   ROOM_USER_DELETE = 'room-user-delete',
   ROOM_PLAYER_JOIN = 'room-player-join',
@@ -23,6 +26,7 @@ export enum Action {
   providedIn: 'root',
 })
 export class RoomService extends SocketService {
+  player: UserAuth;
   private players: PlayerRoom[] = [];
   private playersSubject = new Subject<PlayerRoom[]>();
 
@@ -32,6 +36,10 @@ export class RoomService extends SocketService {
 
   emitPlayers() {
     this.playersSubject.next(this.players);
+  }
+
+  setPlayer(user: UserAuth) {
+    this.player = user;
   }
 
   public get getPlayersSubject(): Subject<PlayerRoom[]> {
@@ -100,10 +108,11 @@ export class RoomService extends SocketService {
   /**
    * Save game in storage
    */
-  public saveGameSession(room: RoomCreated): void {
+  public saveGameSession(room: RoomCreated, user: UserAuth): void {
+    this.setPlayer(user);
     const data: StorageGameSessionUser = {
       roomId: room.roomId,
-      user: this.authService.currentAuthenticationValue,
+      user: user,
       game: room.game,
     };
     this.storageService.setItem(KeyStorage.APP_SAVE_PLAYER_GAME_SESSION, JSON.stringify(data));
@@ -124,11 +133,11 @@ export class RoomService extends SocketService {
   /**
    * function player join room
    */
-  joinRoom(roomId: number): Observable<RoomCreated> {
+  joinRoom(roomId: number, user: UserAuth): Observable<SocketResponse<RoomCreated>> {
     this.send(
       {
         roomId: roomId,
-        user: this.authService.currentAuthenticationValue,
+        user: user,
       },
       Action.ROOM_PLAYER_JOIN,
     );
@@ -150,5 +159,10 @@ export class RoomService extends SocketService {
       );
     }
     this.removeGameSessionStorage();
+  }
+
+  findRoom(roomId: number): Observable<SocketResponse<RoomCreated>> {
+    this.send(roomId, Action.ROOM_FIND);
+    return this.onMessage(Action.ROOM_FIND);
   }
 }

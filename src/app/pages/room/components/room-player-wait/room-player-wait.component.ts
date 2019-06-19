@@ -6,6 +6,7 @@ import { SocketResponse } from '@app/core/model/socketResponse';
 import { Subscription } from 'rxjs';
 import { PlayerRoom } from '@app/pages/room/models/playerRoom';
 import { el } from '@angular/platform-browser/testing/src/browser_util';
+import { UserAuth } from '@app/core/model/userAuth';
 
 @Component({
   selector: 'app-room-player-wait',
@@ -18,6 +19,7 @@ export class RoomPlayerWaitComponent implements OnInit, OnDestroy {
   playersSubscription: Subscription;
   socketStateSubscription: Subscription;
   players: PlayerRoom[] = [];
+  player: UserAuth;
 
   @HostListener('window:unload', ['$event'])
   unloadHandler(event: Event) {
@@ -42,6 +44,7 @@ export class RoomPlayerWaitComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.roomService.initSocketRoom();
     this.listenSocket();
+    this.player = this.roomService.player;
   }
 
   listenSocket() {

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserInterface } from '@app/core/model/user';
+import { User, UserInterface } from '@app/core/model/user';
 import { UserService } from '@app/core/services/user/user.service';
 import { UserAuth } from '@app/core/model/userAuth';
 
@@ -21,6 +21,8 @@ interface UserAuthInterface {
   providedIn: 'root',
 })
 export class AuthService {
+  userGuest: UserAuth;
+  userGuestSubject = new Subject<UserAuth>();
   authenticationState = new BehaviorSubject(null);
 
   constructor(private http: HttpClient, private JwtHelper: JwtHelperService, private userService: UserService) {
@@ -29,6 +31,15 @@ export class AuthService {
 
   get currentAuthenticationValue(): UserAuth {
     return this.authenticationState.value;
+  }
+
+  emitUserGuest() {
+    this.userGuestSubject.next(this.userGuest);
+  }
+
+  setUserGuest(user: UserAuth) {
+    this.userGuest = user;
+    this.emitUserGuest();
   }
 
   checkToken(): void {

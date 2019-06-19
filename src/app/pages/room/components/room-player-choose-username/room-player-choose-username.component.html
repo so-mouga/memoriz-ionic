@@ -1,0 +1,8 @@
+<img src="assets/img/onigiri/onigiri-2.png" width="225px" />
+<form [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
+  <ion-input placeholder="choisie ton pseudo" formControlName="username" class="input-field-text"></ion-input>
+  <ion-button type="submit" [disabled]="usernameForm.invalid" color="secondary-application"> OK, GO! </ion-button>
+</form>
+<ion-text color="danger">
+  <p>{{ error }}</p>
+</ion-text>

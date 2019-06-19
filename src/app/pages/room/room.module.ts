@@ -8,9 +8,16 @@ import { RoomPlayerWaitComponent } from '@app/pages/room/components/room-player-
 import { RoomPlayerFindComponent } from '@app/pages/room/components/room-player-find/room-player-find.component';
 import { RoomUserWaitComponent } from '@app/pages/room/components/room-user-wait/room-user-wait.component';
 import { PlayerDisplayComponent } from '@app/pages/room/components/player-display/player-display.component';
+import { RoomPlayerChooseUsernameComponent } from '@app/pages/room/components/room-player-choose-username/room-player-choose-username.component';
 
 @NgModule({
   imports: [RoomRouterModule, CommonModule, FormsModule, IonicModule, SharedModule],
-  declarations: [RoomPlayerWaitComponent, RoomPlayerFindComponent, RoomUserWaitComponent, PlayerDisplayComponent],
+  declarations: [
+    RoomPlayerWaitComponent,
+    RoomPlayerFindComponent,
+    RoomUserWaitComponent,
+    PlayerDisplayComponent,
+    RoomPlayerChooseUsernameComponent,
+  ],
 })
 export class RoomPageModule {}
