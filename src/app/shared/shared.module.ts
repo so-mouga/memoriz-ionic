@@ -51,6 +51,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { IonicModule } from '@ionic/angular';
 import { UploadMediaComponent } from '@app/shared/components/upload-media/upload-media.component';
+import { HeaderExitComponent } from '@app/shared/components/header-exit/header-exit.component';
 
 /**
  * Shared Module
@@ -123,11 +124,13 @@ import { UploadMediaComponent } from '@app/shared/components/upload-media/upload
     // Components
     InputAddChipComponent,
     UploadMediaComponent,
+    HeaderExitComponent,
   ],
   declarations: [
     // Components
     InputAddChipComponent,
     UploadMediaComponent,
+    HeaderExitComponent,
   ],
 })
 export class SharedModule {}

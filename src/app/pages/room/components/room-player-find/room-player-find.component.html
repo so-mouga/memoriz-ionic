@@ -1,6 +1,7 @@
+<app-header-exit [urlRedirection]="urlRedirection"></app-header-exit>
 <ion-content>
   <ion-grid>
-    <ion-row justify-content-center align-items-center>
+    <ion-row *ngIf="!roomIsFind" justify-content-center align-items-center>
       <img src="assets/img/onigiri/onigiri-2.png" width="225px" />
       <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
         <ion-input
@@ -15,6 +16,9 @@
       <ion-text color="danger">
         <p>{{ error }}</p>
       </ion-text>
+    </ion-row>
+    <ion-row *ngIf="roomIsFind" justify-content-center align-items-center>
+      <app-room-player-choose-username [roomId]="roomId"></app-room-player-choose-username>
     </ion-row>
   </ion-grid>
 </ion-content>

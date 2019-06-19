@@ -6,6 +6,7 @@ import { el } from '@angular/platform-browser/testing/src/browser_util';
 import { PlayerRoom } from '@app/pages/room/models/playerRoom';
 import { RoomCreated } from '@app/pages/room/models/roomCreated';
 import { NavController } from '@ionic/angular';
+import { AuthService } from '@app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-room-player-find',
@@ -16,8 +17,20 @@ export class RoomPlayerFindComponent implements OnInit, OnDestroy {
   roomForm: FormGroup;
   error: string;
   roomSubscription: Subscription;
+  roomIsFind = false;
+  urlRedirection = '/';
+  roomId: number;
 
-  constructor(private formBuilder: FormBuilder, private roomService: RoomService, private navCtrl: NavController) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private roomService: RoomService,
+    private navCtrl: NavController,
+    private authService: AuthService,
+  ) {
+    if (this.authService.currentAuthenticationValue) {
+      this.urlRedirection = '/home/game';
+    }
+  }
 
   ngOnInit() {
     this.roomService.initSocketRoom();
@@ -31,20 +44,43 @@ export class RoomPlayerFindComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.roomSubscription = this.roomService.joinRoom(this.roomForm.value.roomId).subscribe(message => {
-      if (!message.success) {
-        this.error = message.message;
-        this.roomService.getSocket.removeListener(Action.ROOM_PLAYER_JOIN);
-      } else {
-        this.roomService.saveGameSession(message.data);
-        this.navCtrl.navigateForward(['/room', 'instructions']);
-      }
-    });
+    if (this.authService.currentAuthenticationValue) {
+      this.formUserConnected();
+    } else {
+      this.formGuestPlayer();
+    }
   }
 
   ngOnDestroy() {
     if (this.roomSubscription) {
       this.roomSubscription.unsubscribe();
     }
+  }
+
+  private formUserConnected() {
+    this.roomSubscription = this.roomService
+      .joinRoom(this.roomForm.value.roomId, this.authService.currentAuthenticationValue)
+      .subscribe(message => {
+        if (!message.success) {
+          this.error = message.message;
+          this.roomService.getSocket.removeListener(Action.ROOM_PLAYER_JOIN);
+        } else {
+          this.roomService.saveGameSession(message.data, this.authService.currentAuthenticationValue);
+          this.navCtrl.navigateForward(['/room', 'instructions']);
+        }
+      });
+  }
+
+  private formGuestPlayer() {
+    this.roomSubscription = this.roomService.findRoom(this.roomForm.value.roomId).subscribe(data => {
+      this.roomService.getSocket.removeListener(Action.ROOM_FIND);
+      if (!data.success) {
+        this.error = data.message;
+      } else {
+        this.error = '';
+        this.roomIsFind = true;
+        this.roomId = data.data.roomId;
+      }
+    });
   }
 }
