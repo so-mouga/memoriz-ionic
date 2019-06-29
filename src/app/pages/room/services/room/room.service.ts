@@ -152,7 +152,7 @@ export class RoomService extends SocketService {
     if (this.getGameSession()) {
       this.send(
         {
-          user: this.authService.currentAuthenticationValue,
+          user: this.player,
           roomId: this.getGameSession().roomId,
         },
         Action.ROOM_NOTIFY_USER_THAT_PLAYER_LEFT,

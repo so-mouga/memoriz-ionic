@@ -2,9 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Action, RoomService } from '@app/pages/room/services/room/room.service';
-import { el } from '@angular/platform-browser/testing/src/browser_util';
-import { PlayerRoom } from '@app/pages/room/models/playerRoom';
-import { RoomCreated } from '@app/pages/room/models/roomCreated';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '@app/core/services/auth/auth.service';
 
@@ -65,6 +62,7 @@ export class RoomPlayerFindComponent implements OnInit, OnDestroy {
           this.error = message.message;
           this.roomService.getSocket.removeListener(Action.ROOM_PLAYER_JOIN);
         } else {
+          this.error = '';
           this.roomService.saveGameSession(message.data, this.authService.currentAuthenticationValue);
           this.navCtrl.navigateForward(['/room', 'instructions']);
         }
