@@ -19,7 +19,7 @@ export class HeaderExitComponent implements OnInit {
 
   showAlertMessage() {
     return this.alertCtrl.create({
-      message: `Quitter la partie ?`,
+      message: `Quitter ?`,
       buttons: [
         {
           text: 'Non',
