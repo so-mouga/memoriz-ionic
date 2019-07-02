@@ -16,7 +16,7 @@
             <p>nombre de joueur : {{ players.length }}</p>
           </ion-col>
           <ion-col size-xs="3">
-            <ion-button class="button-style" color="dark">
+            <ion-button (click)="onPlayGame()" class="button-style" color="dark">
               <ion-label color="light">GO</ion-label>
             </ion-button>
           </ion-col>

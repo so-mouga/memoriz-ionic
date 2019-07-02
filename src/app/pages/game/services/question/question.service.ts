@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { QuestionGet } from '@app/pages/game/models/questionGet';
 import { map, tap } from 'rxjs/operators';
 import { QuizzClass } from '@app/pages/game/models/quizz.class';
+import { GameGet } from '@app/pages/game/models/gameGet';
 
 @Injectable({
   providedIn: 'root',
