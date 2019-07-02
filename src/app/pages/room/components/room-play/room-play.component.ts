@@ -30,7 +30,6 @@ export class RoomPlayComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private alertCtrl: AlertController,
     private navCtrl: NavController,
     private questionService: QuestionService,
     private roomService: RoomService,
@@ -74,26 +73,5 @@ export class RoomPlayComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.roomService.deleteRoomUser();
     this.currentQuestionSubscription.unsubscribe();
-  }
-
-  OnExit() {
-    this.showAlertMessage().then(p => p.present());
-  }
-
-  showAlertMessage() {
-    return this.alertCtrl.create({
-      message: `Quitter ?`,
-      buttons: [
-        {
-          text: 'Non',
-        },
-        {
-          text: 'Oui',
-          handler: () => {
-            this.navCtrl.navigateRoot('home/game');
-          },
-        },
-      ],
-    });
   }
 }

@@ -1,22 +1,8 @@
-<ion-header>
-  <ion-toolbar *ngIf="question?.id">
-    <h1 text-center>{{ question?.question }}</h1>
-  </ion-toolbar>
-  <ion-toolbar color="dark">
-    <ion-icon
-      (click)="OnExit()"
-      color="light"
-      size="large"
-      slot="secondary"
-      name="md-close"
-      margin-horizontal
-    ></ion-icon>
-  </ion-toolbar>
-</ion-header>
+<app-header-exit [urlRedirection]="'home/game'"></app-header-exit>
 <ion-content>
   <ion-row justify-content-center *ngIf="question?.id">
     <ion-col size-md="7" size-xs="11">
-      <p>{{ question?.id }}</p>
+      <h1 text-center>{{ question?.question }}</h1>
       <ion-row justify-content-center>
         <app-timer (timerIsFinished)="timerIsFinished($event)" [timeLeft]="timeLeft"></app-timer>
       </ion-row>
