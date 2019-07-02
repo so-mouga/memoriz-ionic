@@ -20,6 +20,8 @@ export enum Action {
   ROOM_USER_REMOVE_PLAYER = 'room-user-remove-player',
   ROOM_NOTIFY_PLAYER_ROOM_CLOSED = 'room-user-leave-notify-players',
   ROOM_NOTIFY_USER_THAT_PLAYER_LEFT = 'room-player-leave-notify-user',
+  ROOM_PLAY_START = 'room-play-start',
+  ROOM_PLAY_GET_QUESTION = 'room-play-get-question',
 }
 
 @Injectable({
@@ -27,6 +29,7 @@ export enum Action {
 })
 export class RoomService extends SocketService {
   player: UserAuth;
+  room: StorageRoomSave;
   private players: PlayerRoom[] = [];
   private playersSubject = new Subject<PlayerRoom[]>();
 
@@ -72,6 +75,8 @@ export class RoomService extends SocketService {
           this.emitPlayers();
           observer.next(newRoom.data.roomId);
           observer.complete();
+          this.room = newRoom.data;
+          console.log('new room', this.room);
           this.saveRoomInStorage(newRoom.data);
           return;
         }
@@ -115,11 +120,12 @@ export class RoomService extends SocketService {
       user: user,
       game: room.game,
     };
-    this.storageService.setItem(KeyStorage.APP_SAVE_PLAYER_GAME_SESSION, JSON.stringify(data));
+    this.room = room;
+    this.storageService.setItem(KeyStorage.APP_SAVE_USER_ROOM_ID, JSON.stringify(data));
   }
 
   public removeGameSessionStorage(): void {
-    this.storageService.deleteItem(KeyStorage.APP_SAVE_PLAYER_GAME_SESSION);
+    this.storageService.deleteItem(KeyStorage.APP_SAVE_USER_ROOM_ID);
   }
 
   public saveRoomInStorage(room: StorageRoomSave): void {
@@ -145,7 +151,7 @@ export class RoomService extends SocketService {
   }
 
   public getGameSession(): StorageGameSessionUser {
-    return JSON.parse(this.storageService.getItem(KeyStorage.APP_SAVE_PLAYER_GAME_SESSION));
+    return JSON.parse(this.storageService.getItem(KeyStorage.APP_SAVE_USER_ROOM_ID));
   }
 
   public notifyUserPlayerLeaveRoom(): void {
@@ -164,5 +170,16 @@ export class RoomService extends SocketService {
   findRoom(roomId: number): Observable<SocketResponse<RoomCreated>> {
     this.send(roomId, Action.ROOM_FIND);
     return this.onMessage(Action.ROOM_FIND);
+  }
+
+  public startGame() {
+    this.send(this.getGameSession().roomId, Action.ROOM_PLAY_START);
+  }
+
+  public getQuestionPlay(questionId: number | null = null) {
+    if (!this.room) {
+      return;
+    }
+    this.send({ roomId: this.room.roomId, questionId: questionId }, Action.ROOM_PLAY_GET_QUESTION);
   }
 }

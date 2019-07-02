@@ -1,11 +1,10 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { RoomService, Action } from '@app/pages/room/services/room/room.service';
-import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { Event } from '@app/core/services/socket/socket.service';
 import { SocketResponse } from '@app/core/model/socketResponse';
 import { Subscription } from 'rxjs';
 import { PlayerRoom } from '@app/pages/room/models/playerRoom';
-import { el } from '@angular/platform-browser/testing/src/browser_util';
 import { UserAuth } from '@app/core/model/userAuth';
 
 @Component({
@@ -18,6 +17,7 @@ export class RoomPlayerWaitComponent implements OnInit, OnDestroy {
   isFiredRoom = false;
   playersSubscription: Subscription;
   socketStateSubscription: Subscription;
+  playGameStateSubscription: Subscription;
   players: PlayerRoom[] = [];
   player: UserAuth;
 
@@ -75,6 +75,14 @@ export class RoomPlayerWaitComponent implements OnInit, OnDestroy {
         p.present();
       });
     });
+
+    this.playGameStateSubscription = this.roomService
+      .onMessage(Action.ROOM_PLAY_START)
+      .subscribe((message: SocketResponse<null>) => {
+        if (message.success) {
+          this.navCtrl.navigateForward(['/room/play']);
+        }
+      });
   }
 
   async presentAlert() {
@@ -88,6 +96,7 @@ export class RoomPlayerWaitComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.playersSubscription.unsubscribe();
     this.socketStateSubscription.unsubscribe();
+    this.playGameStateSubscription.unsubscribe();
     if (!this.isFiredRoom) {
       this.roomService.notifyUserPlayerLeaveRoom();
     }

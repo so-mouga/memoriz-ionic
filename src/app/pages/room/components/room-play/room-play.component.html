@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar *ngIf="question?.id">
+    <h1 text-center>{{ question?.question }}</h1>
+  </ion-toolbar>
+  <ion-toolbar color="dark">
+    <ion-icon
+      (click)="OnExit()"
+      color="light"
+      size="large"
+      slot="secondary"
+      name="md-close"
+      margin-horizontal
+    ></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row justify-content-center *ngIf="question?.id">
+    <ion-col size-md="7" size-xs="11">
+      <p>{{ question?.id }}</p>
+      <ion-row justify-content-center>
+        <app-timer (timerIsFinished)="timerIsFinished($event)" [timeLeft]="timeLeft"></app-timer>
+      </ion-row>
+      <ion-button
+        margin-vertical
+        *ngFor="let answer of randomAnswers"
+        (click)="answerPlayer(answer)"
+        shape="round"
+        color="light"
+        style="width: 100%"
+      >
+        {{ answer }}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
