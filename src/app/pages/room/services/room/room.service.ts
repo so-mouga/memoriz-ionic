@@ -76,7 +76,6 @@ export class RoomService extends SocketService {
           observer.next(newRoom.data.roomId);
           observer.complete();
           this.room = newRoom.data;
-          console.log('new room', this.room);
           this.saveRoomInStorage(newRoom.data);
           return;
         }
