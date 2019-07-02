@@ -6,6 +6,7 @@ $colorPrimaryApplication: #cbe8f2;
   --ion-color-secondary-application: #6eb9f5;
   --ion-color-youtube: #ff0000;
 }
+
 $customColors: (
   'primary-application',
   'secondary-application',
@@ -14,6 +15,7 @@ $customColors: (
   'primary-shade',
   'secondary-shade'
 );
+
 @each $color in $customColors {
   .ion-color-#{$color} {
     --ion-color-base: var(--ion-color-#{$color}) !important;
@@ -118,4 +120,40 @@ $customColors: (
   animation: bgcolor 10s infinite;
   -webkit-animation-direction: alternate;
   animation-direction: alternate;
+}
+
+.background-animation {
+  animation: wind 5s cubic-bezier(0.54, 0.01, 0.44, 0.99) infinite alternate;
+  position: fixed;
+  left: -100px;
+  right: -100px;
+}
+
+.background-animation::after {
+  content: '';
+  position: fixed;
+  background: url('/../../assets/img/snow/snow-medium.png');
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; /*500px*/
+  height: 2000px;
+  animation: fall 10s linear infinite;
+  transform: translateZ(50px);
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(-1000px); /*-800px*/
+  }
+}
+
+@keyframes wind {
+  to {
+    transform: translateX(50px);
+  }
+}
+
+::-webkit-scrollbar {
+  display: hide;
 }
