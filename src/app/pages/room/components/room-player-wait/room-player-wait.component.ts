@@ -69,7 +69,7 @@ export class RoomPlayerWaitComponent implements OnInit, OnDestroy {
       this.isFiredRoom = true;
       this.presentAlert().then(p => {
         p.onDidDismiss().then(() => {
-          this.navCtrl.navigateForward(['/room', 'find']);
+          this.navCtrl.navigateForward(['/home', 'game']);
           this.roomService.removeGameSessionStorage();
         });
         p.present();

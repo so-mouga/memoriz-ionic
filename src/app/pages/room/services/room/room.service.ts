@@ -9,7 +9,6 @@ import { StorageGameSessionUser } from '@app/pages/room/models/storageGameSessio
 import { PlayerRoom } from '@app/pages/room/models/playerRoom';
 import { SocketResponse } from '@app/core/model/socketResponse';
 import { UserAuth } from '@app/core/model/userAuth';
-import { User } from '@app/core/model/user';
 
 export enum Action {
   ROOM_FIND = 'room-find',
@@ -22,6 +21,8 @@ export enum Action {
   ROOM_NOTIFY_USER_THAT_PLAYER_LEFT = 'room-player-leave-notify-user',
   ROOM_PLAY_START = 'room-play-start',
   ROOM_PLAY_GET_QUESTION = 'room-play-get-question',
+  ROOM_PLAY_SEND_SCORE = 'room-play-send-score',
+  ROOM_PLAY_GET_SCORE_QUIZZ = 'room-play-get-score-quizz',
 }
 
 @Injectable({
@@ -73,10 +74,11 @@ export class RoomService extends SocketService {
         if (newRoom.success) {
           this.players = newRoom.data.players;
           this.emitPlayers();
+          this.room = newRoom.data;
+          this.setPlayer(this.authService.currentAuthenticationValue);
+          this.saveRoomInStorage(newRoom.data);
           observer.next(newRoom.data.roomId);
           observer.complete();
-          this.room = newRoom.data;
-          this.saveRoomInStorage(newRoom.data);
           return;
         }
         observer.error(newRoom.message);
@@ -179,6 +181,29 @@ export class RoomService extends SocketService {
     if (!this.room) {
       return;
     }
-    this.send({ roomId: this.room.roomId, questionId: questionId }, Action.ROOM_PLAY_GET_QUESTION);
+    this.send({ roomId: this.room.roomId }, Action.ROOM_PLAY_GET_QUESTION);
+  }
+
+  sendAnswerPlayer(answer = '', questionId: number, isCorrect: boolean) {
+    if (answer === null) {
+      answer = '';
+    }
+    this.send(
+      { answer: answer, username: this.player.username, roomId: this.room.roomId, questionId, isCorrect },
+      Action.ROOM_PLAY_SEND_SCORE,
+    );
+  }
+
+  getScoreQuizz() {
+    console.log('getScoreQuizz', this.room);
+
+    if (!this.room) {
+      return;
+    }
+    this.send({ roomId: this.room.roomId, username: this.player.username }, Action.ROOM_PLAY_GET_SCORE_QUIZZ);
+  }
+
+  isUserCreateRoom(): boolean {
+    return this.room.userId === this.player.id;
   }
 }

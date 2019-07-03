@@ -1,0 +1,50 @@
+<app-header-exit [urlRedirection]="'home/game'"></app-header-exit>
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col size-md="7" size-xs="11">
+        <!--        <h2 margin-vertical text-center>Tableau des scores</h2>-->
+
+        <!--        <ion-row padding-horizontal margin-vertical style="background-color: white">-->
+        <!--          <div class="score-user">-->
+        <!--            <p>username</p>-->
+        <!--            <p>score: 1/4</p>-->
+        <!--          </div>-->
+        <!--        </ion-row>-->
+
+        <!--        <ion-row padding-horizontal margin-vertical style="background-color: white">-->
+        <!--          <div class="score-user">-->
+        <!--            <p>username</p>-->
+        <!--            <p>score: 1/4</p>-->
+        <!--          </div>-->
+        <!--        </ion-row>-->
+
+        <h2 margin-vertical text-center>Questions</h2>
+        <div>
+          <mat-accordion *ngFor="let question of scores">
+            <mat-expansion-panel margin-vertical>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ question?.question.question }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-panel-title>
+                réponse:
+              </mat-panel-title>
+              <mat-panel-description>
+                {{ question?.question.correctAnswers }}
+              </mat-panel-description>
+
+              <mat-panel-title *ngIf="question?.question.resource">
+                resource:
+              </mat-panel-title>
+              <mat-panel-description *ngIf="question?.question.resource">
+                {{ question?.question.resource }}
+              </mat-panel-description>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

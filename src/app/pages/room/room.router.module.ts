@@ -6,6 +6,7 @@ import { RoomUserWaitComponent } from '@app/pages/room/components/room-user-wait
 import { AuthGuardService } from '@app/core/guards/auth-guard.service';
 import { UserGuestGuard } from '@app/core/guards/user-guest/user-guest.guard';
 import { RoomPlayComponent } from '@app/pages/room/components/room-play/room-play.component';
+import { RoomDisplayScoreComponent } from '@app/pages/room/components/room-display-score/room-display-score.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'play',
     component: RoomPlayComponent,
+    canActivate: [UserGuestGuard],
+  },
+  {
+    path: 'score',
+    component: RoomDisplayScoreComponent,
     canActivate: [UserGuestGuard],
   },
 ];

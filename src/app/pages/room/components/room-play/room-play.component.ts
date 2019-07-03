@@ -4,7 +4,7 @@ import { QuestionService } from '@app/pages/game/services/question/question.serv
 import { QuestionClass } from '@app/core/model/question.class';
 import { Action, RoomService } from '@app/pages/room/services/room/room.service';
 import { SocketResponse } from '@app/core/model/socketResponse';
-import { AlertController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Event } from '@app/core/services/socket/socket.service';
 
@@ -16,8 +16,10 @@ import { Event } from '@app/core/services/socket/socket.service';
 export class RoomPlayComponent implements OnInit, OnDestroy {
   question = new QuestionClass();
   randomAnswers: any[] = [];
-  timeLeft = 30;
+  timeLeft = 20;
   currentQuestionSubscription: Subscription;
+  hasAnswered = null;
+  startQuizz = false;
 
   @HostListener('window:unload', ['$event'])
   unloadHandler(event: Event) {
@@ -41,24 +43,44 @@ export class RoomPlayComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.roomService.getQuestionPlay();
+    if (this.roomService.isUserCreateRoom()) {
+      this.roomService.getQuestionPlay();
+    }
     this.listenSocket();
   }
 
   timerIsFinished(isFinished: boolean) {
-    console.log(isFinished);
+    if (isFinished && this.startQuizz === true) {
+      this.roomService.sendAnswerPlayer(
+        this.hasAnswered,
+        this.question.id,
+        this.question.isCorrectAnswer(this.hasAnswered),
+      );
+      if (this.roomService.isUserCreateRoom()) {
+        this.roomService.getQuestionPlay();
+      }
+      this.hasAnswered = null;
+    }
   }
 
   answerPlayer(answer: string) {
-    console.log(this.question.isCorrectAnswer(answer));
+    this.hasAnswered = answer;
   }
 
   listenSocket() {
     this.currentQuestionSubscription = this.roomService
       .onMessage(Action.ROOM_PLAY_GET_QUESTION)
       .subscribe((message: SocketResponse<QuestionGet>) => {
-        this.question.makeQuestion(message.data);
-        this.randomAnswers = this.shuffle(this.question.allAnswers());
+        if (message.success) {
+          this.startQuizz = true;
+          this.question.makeQuestion(message.data);
+          this.randomAnswers = this.shuffle(this.question.allAnswers());
+        } else {
+          this.startQuizz = false;
+          this.navCtrl.navigateForward(['/room/score']);
+          this.roomService.getSocket.removeListener(Action.ROOM_PLAY_GET_QUESTION);
+          this.currentQuestionSubscription.unsubscribe();
+        }
       });
   }
 
@@ -71,7 +93,9 @@ export class RoomPlayComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.roomService.deleteRoomUser();
+    if (this.roomService.isUserCreateRoom()) {
+      this.roomService.deleteRoomUser();
+    }
     this.currentQuestionSubscription.unsubscribe();
   }
 }

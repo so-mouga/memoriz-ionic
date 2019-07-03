@@ -8,6 +8,7 @@ import { AlertController, NavController, ToastController } from '@ionic/angular'
 })
 export class HeaderExitComponent implements OnInit {
   @Input() urlRedirection: string;
+  @Input() title: string;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController) {}
 
