@@ -6,21 +6,27 @@ import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angu
   styleUrls: ['./timer.component.scss'],
 })
 export class TimerComponent implements OnInit, OnDestroy {
-  @Input() timeLeft: number;
+  @Input() timer: number;
+  @Input() startTimer: boolean;
   @Output() timerIsFinished = new EventEmitter();
   intervalTimer;
+  timeLeft;
 
   constructor() {}
 
   ngOnInit() {
-    this.intervalTimer = setInterval(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-      } else {
-        clearInterval(this.intervalTimer);
-        this.timerIsFinished.emit(true);
-      }
-    }, 1000);
+    if (this.startTimer) {
+      this.timeLeft = this.timer;
+      this.intervalTimer = setInterval(() => {
+        if (this.timeLeft > 0) {
+          this.timeLeft--;
+        } else {
+          // clearInterval(this.intervalTimer);
+          this.timerIsFinished.emit(true);
+          this.timeLeft = this.timer;
+        }
+      }, 1000);
+    }
   }
 
   ngOnDestroy(): void {

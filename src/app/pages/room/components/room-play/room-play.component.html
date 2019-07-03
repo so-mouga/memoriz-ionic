@@ -1,21 +1,19 @@
 <app-header-exit [urlRedirection]="'home/game'"></app-header-exit>
 <ion-content>
-  <ion-row justify-content-center *ngIf="question?.id">
-    <ion-col size-md="7" size-xs="11">
-      <h1 text-center>{{ question?.question }}</h1>
+  <ion-grid *ngIf="question?.id">
+    <ion-row justify-content-center *ngIf="startQuizz">
       <ion-row justify-content-center>
-        <app-timer (timerIsFinished)="timerIsFinished($event)" [timeLeft]="timeLeft"></app-timer>
+        <app-timer (timerIsFinished)="timerIsFinished($event)" [timer]="timeLeft" [startTimer]="startQuizz"></app-timer>
       </ion-row>
-      <ion-button
-        margin-vertical
-        *ngFor="let answer of randomAnswers"
-        (click)="answerPlayer(answer)"
-        shape="round"
-        color="light"
-        style="width: 100%"
-      >
-        {{ answer }}
-      </ion-button>
-    </ion-col>
-  </ion-row>
+      <ion-col size-md="7" size-xs="11" *ngIf="hasAnswered === null">
+        <h1 text-center>{{ question?.question }}</h1>
+        <div class="answer" padding margin-vertical *ngFor="let answer of randomAnswers" (click)="answerPlayer(answer)">
+          <h4 text-center>{{ answer }}</h4>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="hasAnswered" justify-content-center align-items-center>
+      <p text-center>Ta réponse a bien été prise en compte ! plus qu'a attendre la fin de temps imparti</p>
+    </ion-row>
+  </ion-grid>
 </ion-content>

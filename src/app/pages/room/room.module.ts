@@ -11,9 +11,11 @@ import { PlayerDisplayComponent } from '@app/pages/room/components/player-displa
 import { RoomPlayerChooseUsernameComponent } from '@app/pages/room/components/room-player-choose-username/room-player-choose-username.component';
 import { RoomPlayComponent } from '@app/pages/room/components/room-play/room-play.component';
 import { TimerComponent } from '@app/pages/room/components/timer/timer.component';
+import { RoomDisplayScoreComponent } from '@app/pages/room/components/room-display-score/room-display-score.component';
+import { MatExpansionModule } from '@angular/material';
 
 @NgModule({
-  imports: [RoomRouterModule, CommonModule, FormsModule, IonicModule, SharedModule],
+  imports: [RoomRouterModule, CommonModule, FormsModule, IonicModule, SharedModule, MatExpansionModule],
   declarations: [
     RoomPlayerWaitComponent,
     RoomPlayerFindComponent,
@@ -22,6 +24,7 @@ import { TimerComponent } from '@app/pages/room/components/timer/timer.component
     RoomPlayerChooseUsernameComponent,
     RoomPlayComponent,
     TimerComponent,
+    RoomDisplayScoreComponent,
   ],
 })
 export class RoomPageModule {}
