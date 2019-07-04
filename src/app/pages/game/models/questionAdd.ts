@@ -8,6 +8,6 @@ export interface QuestionAdd {
   correctAnswers: string[];
   media: string;
   resource: string;
-  resourceMedia: string;
+  resourceMedia: File;
   tags: TagAdd[];
 }

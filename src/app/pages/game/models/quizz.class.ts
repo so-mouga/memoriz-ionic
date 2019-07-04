@@ -10,10 +10,9 @@ export class QuizzClass implements QuestionAdd {
   public media: string;
   public question: string;
   public resource: string;
-  public resourceMedia: string;
+  public resourceMedia: File;
   public tags: TagAdd[];
   public userId: string;
-  public id: number;
 
   constructor() {
     this.correctAnswers = [];

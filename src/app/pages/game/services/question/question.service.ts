@@ -18,6 +18,7 @@ export class QuestionService {
   constructor(private http: HttpClient) {}
 
   createQuestion(question: QuestionAdd): Observable<any> {
+      console.log('send question', question);
     return this.http.post<QuestionGet>(`${this.endpoint}`, question).pipe(
       tap((data: QuestionGet) => {
         const quizz = new QuizzClass();

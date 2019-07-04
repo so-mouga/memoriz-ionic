@@ -1,99 +1,118 @@
 <ion-header *ngIf="isModal">
-  <ion-toolbar color="dark">
-    <ion-buttons slot="start" (click)="OnCloseModal()">
-      <ion-button>
-        <ion-icon slot="icon-only" name="md-close" color="light"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start" (click)="OnCloseModal()">
+            <ion-button>
+                <ion-icon slot="icon-only" name="md-close" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <h1 text-center>Créer une question</h1>
+    <ion-grid>
+        <h1 text-center>Créer une question</h1>
 
-    <form [formGroup]="quizzForm" (ngSubmit)="onSubmit()">
-      <ion-row justify-content-center>
-        <ion-col size-md="7" size-xs="12">
-          <label for="add-question">Question</label>
-          <ion-input id="add-question" padding class="input-field-text" type="string" formControlName="question">
-          </ion-input>
-          <div margin-top margin-bottom>
-            <app-input-add-chip (sendTags)="getTags($event)"></app-input-add-chip>
-          </div>
-          <ion-row class="question-media-uploader center-bloc-column">
-            <label>Media</label>
-            <ion-col size-xs="9">
-              <ion-button class="button-style" color="primary-application">
-                <ion-icon name="images"></ion-icon>
-                <ion-label color="light">Importe ton image</ion-label>
-              </ion-button>
-            </ion-col>
-            <ion-col size-xs="9">
-              <ion-button class="button-style" color="youtube">
-                <ion-icon slot="start" name="logo-youtube"></ion-icon>
-                Lien Youtube
-              </ion-button>
-            </ion-col>
-          </ion-row>
+        <form [formGroup]="quizzForm" (ngSubmit)="onSubmit()">
+            <ion-row justify-content-center>
+                <ion-col size-md="7" size-xs="12">
+                    <label for="add-question">Question</label>
+                    <ion-input id="add-question" padding class="input-field-text" type="string"
+                               formControlName="question">
+                    </ion-input>
+                    <div margin-top margin-bottom>
+                        <app-input-add-chip (sendTags)="getTags($event)"></app-input-add-chip>
+                    </div>
+                    <ion-row class="question-media-uploader center-bloc-column">
+                        <label>Media</label>
+                        <ion-col size-xs="9">
+                            <ion-row>
+                                <ion-img *ngIf="this.img !== null" [src]="this.img"></ion-img>
+                                <ion-icon (click)="removeImage()" *ngIf="this.img !== null" name="md-close"></ion-icon>
+                            </ion-row>
 
-          <div class="bloc-answers" formArrayName="answers">
-            <div *ngFor="let item of answers.controls; let answerIndex = index" [formGroupName]="answerIndex">
-              <ion-row>
-                <ion-col size-xs="11">
-                  <label>Réponse {{ answerIndex + 1 }}</label>
-                </ion-col>
-                <ion-col size-xs="1" class="center-bloc-column">
-                  <ion-icon *ngIf="answerIndex == 0" name="md-help-circle" color="primary"></ion-icon>
-                </ion-col>
-              </ion-row>
+                            <input hidden type="file" #inputFile formControlName="media" (change)="onFileChanged($event)">
+                            <ion-button type="file" class="button-style" color="primary-application"
+                                        (click)="triggerAddMedia();">
+                                <ion-icon name="images"></ion-icon>
+                                <ion-label color="light">Importe ton image</ion-label>
+                            </ion-button>
+                        </ion-col>
+                        <ion-col size-xs="9">
+                            <ion-button class="button-style" color="youtube" (click)="triggerAddLink()">
+                                <ion-icon slot="start" name="logo-youtube"></ion-icon>
+                                Lien Youtube
+                            </ion-button>
 
-              <ion-row>
-                <ion-col size-xs="11">
-                  <ion-input formControlName="answer" class="input-field-text" type="string"></ion-input>
+                        </ion-col>
+                        <ion-col size-xs="9">
+                            <ion-input *ngIf="this.triggerLink === true" placeholder="Votre lien video"></ion-input>
+                            <!--<ion-icon (click)="removeImage()" *ngIf="this.img !== null" name="md-close"></ion-icon>-->
+                        </ion-col>
+                    </ion-row>
+
+                    <div class="bloc-answers" formArrayName="answers">
+                        <div *ngFor="let item of answers.controls; let answerIndex = index"
+                             [formGroupName]="answerIndex">
+                            <ion-row>
+                                <ion-col size-xs="11">
+                                    <label>Réponse {{ answerIndex + 1 }}</label>
+                                </ion-col>
+                                <ion-col size-xs="1" class="center-bloc-column">
+                                    <ion-icon *ngIf="answerIndex == 0" name="md-help-circle" color="primary"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row>
+                                <ion-col size-xs="11">
+                                    <ion-input formControlName="answer" class="input-field-text"
+                                               type="string"></ion-input>
+                                </ion-col>
+                                <ion-col class="center-bloc-column" size-xs="1">
+                                    <ion-checkbox formControlName="isCorrectAnswer" color="success"></ion-checkbox>
+                                </ion-col>
+                                <ion-button color="danger" *ngIf="answerIndex > 1" (click)="deleteAnswer(answerIndex)"
+                                >remove
+                                </ion-button
+                                >
+                            </ion-row>
+                        </div>
+                        <ion-row justify-content-center margin-top>
+                            <ion-button color="light" *ngIf="this.answers.length < maxAnswer" (click)="addAnswer()">
+                                <p>Ajouter une réponse</p>
+                            </ion-button>
+                        </ion-row>
+                    </div>
                 </ion-col>
-                <ion-col class="center-bloc-column" size-xs="1">
-                  <ion-checkbox formControlName="isCorrectAnswer" color="success"></ion-checkbox>
-                </ion-col>
-                <ion-button color="danger" *ngIf="answerIndex > 1" (click)="deleteAnswer(answerIndex)"
-                  >remove</ion-button
-                >
-              </ion-row>
-            </div>
-            <ion-row justify-content-center margin-top>
-              <ion-button color="light" *ngIf="this.answers.length < maxAnswer" (click)="addAnswer()">
-                <p>Ajouter une réponse</p>
-              </ion-button>
             </ion-row>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row justify-content-center>
-        <ion-col size-md="7" size-xs="12">
-          <p>Resources</p>
-          <ion-textarea
-            class="input-area-field"
-            rows="3"
-            cols="20"
-            placeholder="Détails pour une correction"
-          ></ion-textarea>
-        </ion-col>
-      </ion-row>
-      <ion-row justify-content-center>
-        <ion-col size-md="7" size-xs="12">
-          <div class="center-bloc-align resource-media">
-            <ion-button class="button-style" color="light">
-              <ion-icon slot="icon-only" name="md-document"></ion-icon>
-            </ion-button>
-            <p>Ajouter un pdf ou une image.</p>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row justify-content-center>
-        <ion-col size-md="7" size-xs="12" class="bloc-add-quizz">
-          <ion-icon (click)="onSubmit()" style="font-size: 50px;" color="primary" name="md-add-circle"></ion-icon>
-        </ion-col>
-      </ion-row>
-    </form>
-  </ion-grid>
+            <ion-row justify-content-center>
+                <ion-col size-md="7" size-xs="12">
+                    <p>Resources</p>
+                    <ion-textarea
+                            class="input-area-field"
+                            rows="3"
+                            cols="20"
+                            placeholder="Détails pour une correction"
+                    ></ion-textarea>
+                </ion-col>
+            </ion-row>
+            <ion-row justify-content-center>
+                <ion-col size-md="7" size-xs="12">
+                    <div class="center-bloc-align resource-media">
+                        <input hidden type="file" #inputFileRessourceMedia (change)="onFileRessourceMediaChanged($event)">
+                        <ion-button class="button-style" color="light" (click)="triggerAddResourceMedia()">
+                            <ion-icon slot="icon-only" name="md-document"></ion-icon>
+                        </ion-button>
+                        <p>Ajouter un pdf ou une image.</p>
+                    </div>
+
+                </ion-col>
+            </ion-row>
+            <ion-row justify-content-center>
+                <ion-col size-md="7" size-xs="12" class="bloc-add-quizz">
+                    <ion-icon (click)="onSubmit()" style="font-size: 50px;" color="primary"
+                              name="md-add-circle"></ion-icon>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-grid>
 </ion-content>

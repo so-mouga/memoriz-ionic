@@ -9,7 +9,7 @@ export interface QuizzAddForm {
   userId: string;
   question: string;
   resource: string;
-  resourceMedia: string;
+  resourceMedia: File;
   media: string;
   tags: TagAdd[];
   answers: AnswerQuizzAddForm[];

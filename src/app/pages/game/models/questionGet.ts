@@ -9,7 +9,7 @@ export interface QuestionGet {
   media: string;
   question: string;
   resource: string;
-  resourceMedia: string;
+  resourceMedia: File;
   tags: TagQuestionGet[];
   user: UserAuth;
 }
