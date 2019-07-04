@@ -16,7 +16,7 @@ import { Event } from '@app/core/services/socket/socket.service';
 export class RoomPlayComponent implements OnInit, OnDestroy {
   question = new QuestionClass();
   randomAnswers: any[] = [];
-  timeLeft = 20;
+  timeLeft = 15;
   currentQuestionSubscription: Subscription;
   hasAnswered = null;
   startQuizz = false;

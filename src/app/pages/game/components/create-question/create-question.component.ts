@@ -45,7 +45,7 @@ export class CreateQuestionComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[0]);
       this.media = <File>event.target.files[0];
-      this.quizzForm.value.media = this.media;
+      // this.quizzForm.value.media = this.media;
     }
   }
 
@@ -114,34 +114,47 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.quizzForm.value.media) {
-      const formData = new FormData();
-      formData.append('media', this.quizzForm.value.media, 'toto');
-      this.uploadService.uploadMedia(formData).subscribe(
-        res => {
-          this.uploadResponse = res;
-          console.log('is upload', res);
-        },
-        err => {
-          // this.error = err
-          console.log('err', err);
-        },
-      );
-    }
-
+    // todo refacto this
     if (this.quizzForm.valid && this.isAnswersValid.length > 0) {
-      const quizz = new QuizzClass();
-      quizz.makeQuestion(this.quizzForm.value);
-      this.questionService.createQuestion(quizz).subscribe(
-        question => {
-          if (this.isModal) {
-            this.OnCloseModal(question);
-          } else {
-            this.navCtrl.navigateRoot('home/game');
-          }
-        },
-        error => console.error(error),
-      );
+      if (this.img) {
+        const formData = new FormData();
+        formData.append('media', this.media);
+        this.uploadService.upload(formData).subscribe(
+          res => {
+            this.uploadResponse = res;
+
+            this.quizzForm.value.media = res.media;
+            const quizz = new QuizzClass();
+            quizz.makeQuestion(this.quizzForm.value);
+            this.questionService.createQuestion(quizz).subscribe(
+              question => {
+                if (this.isModal) {
+                  this.OnCloseModal(question);
+                } else {
+                  this.navCtrl.navigateRoot('home/game');
+                }
+              },
+              error => console.error(error),
+            );
+          },
+          err => {
+            // this.error = err
+          },
+        );
+      } else {
+        const quizz = new QuizzClass();
+        quizz.makeQuestion(this.quizzForm.value);
+        this.questionService.createQuestion(quizz).subscribe(
+          question => {
+            if (this.isModal) {
+              this.OnCloseModal(question);
+            } else {
+              this.navCtrl.navigateRoot('home/game');
+            }
+          },
+          error => console.error(error),
+        );
+      }
     }
   }
 

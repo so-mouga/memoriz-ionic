@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpParams } from '@angular/common/http';
 import { QuestionGet } from '@app/pages/game/models/questionGet';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { QuizzClass } from '@app/pages/game/models/quizz.class';
 import { Observable } from 'rxjs';
 
@@ -15,14 +15,18 @@ export class UploadMediaService {
 
   constructor(private http: HttpClient) {}
 
-  public uploadMedia(media): Observable<any> {
-    return this.http.post(`${this.endpoint}`, media, {
-      // reportProgress: true,
-      // observe: 'events'
-    });
+  public upload(media): Observable<any> {
+    const params = new HttpParams();
+
+    const options = {
+      params: params,
+      reportProgress: true,
+    };
+
+    return this.http.post(`${this.endpoint}`, media, options);
   }
 
-  public upload(data) {
+  public uploadProgress(data): Observable<any> {
     return this.http
       .post<any>(`${this.endpoint}`, data, {
         reportProgress: true,
