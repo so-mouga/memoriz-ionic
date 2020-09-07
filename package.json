@@ -42,7 +42,7 @@
     "if-env": "^1.0.4",
     "moment": "^2.24.0",
     "path": "^0.12.7",
-    "rxjs": "~6.3.3",
+    "rxjs": "~6.6.3",
     "socket.io": "^2.2.0",
     "web-animations-js": "^2.3.2",
     "zone.js": "~0.8.29"
